@@ -1,0 +1,12 @@
+# Obsidian workspace state (device-specific)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# Obsidian cache
+.obsidian/cache
+
+# macOS metadata
+.DS_Store
+
+# Windows metadata
+Thumbs.db
