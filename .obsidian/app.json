@@ -1,0 +1,8 @@
+{
+  "propertiesInDocument": "hidden",
+  "attachmentFolderPath": "./Attachments",
+  "newLinkFormat": "relative",
+  "alwaysUpdateLinks": true,
+  "useMarkdownLinks": true,
+  "promptDelete": false
+}
