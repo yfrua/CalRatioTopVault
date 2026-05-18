@@ -1,0 +1,2 @@
+- single tag samples for Charming ALP, HSS, Dijet from Alex: [google docs](https://docs.google.com/spreadsheets/d/1RcJmJ6RTW24Hdd3yZpOQVUfSrqVtSFi7O1VFeGOjuQw/edit?usp=sharing)
+- Collection of mc23 samples in `TopCalRatio`: [gitlab](https://gitlab.cern.ch/atlas-phys/exot/ueh/calratio_top/topcalratio/-/blob/master/grid/mc23?ref_type=heads)
