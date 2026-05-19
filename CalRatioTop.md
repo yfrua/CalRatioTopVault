@@ -1,2 +1,2 @@
 # Note Navigation
-- defined analysis [Channels](notes/Channels.md).
+- defined analysis [channels](notes/Channels.md).
