@@ -2,13 +2,13 @@
 # single top + DV
 1. [charming ALP](https://arxiv.org/pdf/2202.09371) (ax): 
 	1. $pp \to t + ax$ , not generated.
-	2. $pp \to t \bar{t}, \  t \to u/c + ax$
+	2. $pp \to t \bar{t}, \  t \to u/c + ax$, generated.
 ![](assets/Channels/file-20260519162207506.png)
 ![](assets/Channels/file-20260519162305298.png)
 2. HNLs, not generated.
 
 # ttbar + DV
-- [ttbar + ALP](https://arxiv.org/pdf/2303.17634)
-	- $pp \to t \bar{t} + ax$
+- [ttbar + ALP](https://arxiv.org/pdf/2303.17634), on-going generation
+	- $pp \to t \bar{t} + ax$, ignore fig (b).
 	- consider both single-lepton and dilepton decay of osWW
 ![](assets/Channels/file-20260519163605660.png)
