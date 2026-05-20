@@ -4,6 +4,16 @@
 # Signal
 ## charmingALP_ttbar_ALP_semilep
 - the model 1.2 of [single top + DV channel](Channels.md)
+- parameters of useful samples  are:
+
+|     | m(ALP) [GeV] | lifetime [mm] | #(events) |
+| --- | ------------ | ------------- | --------- |
+|     | 5            | 100           | 180k      |
+|     | 5            | 1000          | 360k      |
+|     | 15           | 1000          | 360k      |
+|     | 40           | 1000          | 180k      |
+|     | 40           | 1500          | 180k      |
+
 ```text
 # ma = 5 GeV, ctau = 1 mm (warning, double tagged)
 mc23_13p6TeV.562144.MGPy8EG_A14N23LO_ttbar_LL_ALP_fixed_ma5_ctau1.deriv.DAOD_LLP1.e8599_e8586_s4162_s4114_r15540_r15516_p7106
