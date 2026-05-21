@@ -4,7 +4,7 @@
 - using samples list [here](Samples.md)
 
 # Event Selection
-- #TODO trigger
+- [Trigger](Trigger.md)
 - two opposite sign $e \mu$.
 - clean jets
 - 
