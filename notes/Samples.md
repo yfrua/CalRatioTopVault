@@ -1,8 +1,13 @@
 - LLP1 DAOD
 - single tag samples for Charming ALP, HSS, Dijet from Alex: [google docs](https://docs.google.com/spreadsheets/d/1RcJmJ6RTW24Hdd3yZpOQVUfSrqVtSFi7O1VFeGOjuQw/edit?usp=sharing)
 - Collection of mc23 samples in `TopCalRatio`: [gitlab](https://gitlab.cern.ch/atlas-phys/exot/ueh/calratio_top/topcalratio/-/blob/master/grid/mc23?ref_type=heads)
-# Data
 
+# Data
+```
+data22_13p6TeV:data22_13p6TeV.periodAllYear.physics_Main.PhysCont.DAOD_LLP1.grp22_v01_p7079
+data23_13p6TeV:data23_13p6TeV.periodAllYear.physics_Main.PhysCont.DAOD_LLP1.grp23_v01_p7079
+data24_13p6TeV:data24_13p6TeV.periodAllYear.physics_Main.PhysCont.DAOD_LLP1.grp24_v01_p7079
+```
 
 # Signal
 ## charmingALP_ttbar_ALP_semilep
