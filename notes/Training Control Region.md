@@ -4,6 +4,7 @@
 - using samples list [here](Samples.md)
 
 # Event Selection
-- two opposite sign, opposite flavor lepton.
+- #TODO trigger
+- two opposite sign $e \mu$.
 - clean jets
 - 
