@@ -1,0 +1,42 @@
+- Do a test and plotting for every 10 epochs (total 20 epochs) for the best trials.
+- Make a tier list below for each epoch subjectively.
+# ttbar CR
+
+# dijet CR
+- very high BIB score and some small QCD score for dijet CR before using CR in training.
+
+- calRatioTransformer_dijetCR_trial_38_20260708-T023426
+	- 17-19: D
+- calRatioTransformer_dijetCR_trial_42_20260708-T045516
+	- F
+- calRatioTransformer_dijetCR_trial_56_20260708-T070108
+	- 16-19: C
+- calRatioTransformer_dijetCR_trial_84_20260708-T085406
+	- F
+- calRatioTransformer_dijetCR_trial_101_20260708-T110506
+	- 19: D
+- calRatioTransformer_dijetCR_trial_102_20260708-T131152
+	- F
+- calRatioTransformer_dijetCR_trial_112_20260708-T152024
+	- 18-19: C
+- calRatioTransformer_dijetCR_trial_142_20260708-T183235
+	- 10-19: D
+- calRatioTransformer_dijetCR_trial_152_20260708-T204539
+	- F
+- calRatioTransformer_dijetCR_trial_157_20260708-T223245
+	- F
+- calRatioTransformer_dijetCR_trial_161_20260709-T014452
+	- F
+- calRatioTransformer_dijetCR_trial_168_20260709-T035838
+	- F
+- calRatioTransformer_dijetCR_trial_173_20260709-T052955
+	- 15-16, 18-19: C
+	- 17: B
+- calRatioTransformer_dijetCR_trial_179_20260709-T071010
+	- F
+- calRatioTransformer_dijetCR_trial_189_20260709-T102753
+	- F
+- calRatioTransformer_dijetCR_trial_204_20260709-T130107
+	- 10-12, 19: C
+	- 13-14, 18: C+
+	- 15-17: B
