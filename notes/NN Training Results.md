@@ -1,6 +1,16 @@
 - Do a test and plotting for every 10 epochs (total 20 epochs) for the best trials.
 - Make a tier list below for each epoch subjectively.
 # ttbar CR
+- calRatioTransformer_trial_98_20260703-T173412
+- calRatioTransformer_trial_100_20260703-T174527
+- calRatioTransformer_trial_114_20260703-T175419
+- calRatioTransformer_trial_116_20260703-T180330
+- calRatioTransformer_trial_129_20260703-T181030
+- calRatioTransformer_trial_145_20260703-T182641
+- calRatioTransformer_trial_148_20260703-T183537
+- calRatioTransformer_trial_166_20260703-T184238
+- calRatioTransformer_trial_167_20260703-T185215
+- calRatioTransformer_trial_178_20260703-T190443
 
 # dijet CR
 - very high BIB score and some small QCD score for dijet CR before using CR in training.
