@@ -14,6 +14,7 @@
 
 # dijet CR
 - very high BIB score and some small QCD score for dijet CR before using CR in training.
+- **choose trial 204, epoch 17**
 
 - calRatioTransformer_dijetCR_trial_38_20260708-T023426
 	- 17-19: D
