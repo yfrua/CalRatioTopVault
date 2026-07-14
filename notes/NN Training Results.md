@@ -1,16 +1,36 @@
 - Do a test and plotting for last 10 epochs (total 20 epochs) for the best trials.
 - Make a tier list below for each epoch subjectively.
 # ttbar CR
-- calRatioTransformer_trial_98_20260703-T173412
-	- C+
-- calRatioTransformer_trial_100_20260703-T174527
-	- B
-- calRatioTransformer_trial_114_20260703-T175419
-	- 17-18: D
-	- 14: C
-	- 15: C+
-	- 09-13: B
-	- 19: B+
+- link to the plots:
+- choose trial 100, epoch 12
+
+## calRatioTransformer_trial_98_20260703-T173412
+- C+
+
+## calRatioTransformer_trial_100_20260703-T174527
+AUC=0.997
+
+| epoch | tier |
+| ----- | ---- |
+| 09    | B+   |
+| 10    | B+   |
+| 11    | B+   |
+| 12    | A-   |
+| 13    | B+   |
+| 14    | B+   |
+| 15    | B+   |
+| 16    | B    |
+| 17    | B    |
+| 18    | B    |
+| 19    | B    |
+
+## calRatioTransformer_trial_114_20260703-T175419
+- 17-18: D
+- 14: C
+- 15: C+
+- 09-13: B
+- 19: B+
+
 ## calRatioTransformer_trial_116_20260703-T180330
 
 | epoch | tier |
