@@ -146,7 +146,7 @@ AUC=0.996
 
 
 # dijet CR
-- link to the plots: 
+- link to the plots: https://drive.google.com/file/d/1-APqtHgCQksR5hmIkb1CKUQq3aLP1AN1/view?usp=sharing
 - very high BIB score and some small QCD score for dijet CR before using CR in training.
 - **choose trial 204, epoch 17**
 
