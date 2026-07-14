@@ -6,17 +6,27 @@
 - calRatioTransformer_trial_100_20260703-T174527
 	- B
 - calRatioTransformer_trial_114_20260703-T175419
-	- 09-13: B
+	- 17-18: D
 	- 14: C
+	- 15: C+
+	- 09-13: B
 	- 19: B+
-- calRatioTransformer_trial_116_20260703-T180330
-- calRatioTransformer_trial_129_20260703-T181030
-- calRatioTransformer_trial_145_20260703-T182641
-- calRatioTransformer_trial_148_20260703-T183537
-- calRatioTransformer_trial_166_20260703-T184238
-- calRatioTransformer_trial_167_20260703-T185215
-- calRatioTransformer_trial_178_20260703-T190443
+## calRatioTransformer_trial_116_20260703-T180330
 
+| epoch | tier |
+| ----- | ---- |
+| 09    | C    |
+| 10    | C+   |
+| 11    | C    |
+| 12    | B    |
+| 13    | C    |
+| 14    | C+   |
+| 15    | C    |
+| 16    | C+   |
+| 17    | C    |
+| 18    | C+   |
+| 19    |      |
+## calRatioTransformer_trial_129_20260703-T181030
 
 | epoch | tier |
 | ----- | ---- |
@@ -26,7 +36,79 @@
 | 12    |      |
 | 13    |      |
 | 14    |      |
-| 15    | C+   |
+| 15    |      |
+| 16    |      |
+| 17    |      |
+| 18    |      |
+| 19    |      |
+## calRatioTransformer_trial_145_20260703-T182641
+| epoch | tier |
+| ----- | ---- |
+| 09    |      |
+| 10    |      |
+| 11    |      |
+| 12    |      |
+| 13    |      |
+| 14    |      |
+| 15    |      |
+| 16    |      |
+| 17    |      |
+| 18    |      |
+| 19    |      |
+## calRatioTransformer_trial_148_20260703-T183537
+| epoch | tier |
+| ----- | ---- |
+| 09    |      |
+| 10    |      |
+| 11    |      |
+| 12    |      |
+| 13    |      |
+| 14    |      |
+| 15    |      |
+| 16    |      |
+| 17    |      |
+| 18    |      |
+| 19    |      |
+
+## calRatioTransformer_trial_166_20260703-T184238
+| epoch | tier |
+| ----- | ---- |
+| 09    |      |
+| 10    |      |
+| 11    |      |
+| 12    |      |
+| 13    |      |
+| 14    |      |
+| 15    |      |
+| 16    |      |
+| 17    |      |
+| 18    |      |
+| 19    |      
+
+## calRatioTransformer_trial_167_20260703-T185215
+| epoch | tier |
+| ----- | ---- |
+| 09    |      |
+| 10    |      |
+| 11    |      |
+| 12    |      |
+| 13    |      |
+| 14    |      |
+| 15    |      |
+| 16    |      |
+| 17    |      |
+| 18    |      |
+| 19    |      |
+## calRatioTransformer_trial_178_20260703-T190443
+| epoch | tier |
+| ----- | ---- |
+| 09    |      |
+| 10    |      |
+| 11    |      |
+| 12    |      |
+| 13    |      |
+| 14    |      |
+| 15    |      |
 | 16    |      |
 | 17    |      |
 | 18    |      |
