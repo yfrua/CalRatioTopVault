@@ -1,4 +1,6 @@
 {
   "cssTheme": "Catppuccin",
-  "accentColor": "#a38df1"
+  "accentColor": "#a38df1",
+  "baseFontSize": 19,
+  "baseFontSizeAction": true
 }
