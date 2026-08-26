@@ -14,13 +14,13 @@ data24_13p6TeV:data24_13p6TeV.periodAllYear.physics_Main.PhysCont.DAOD_LLP1.grp2
 - the model 1.2 of [single top + DV channel](Channels.md)
 - parameters of useful samples are:
 
-|     | m(ALP) [GeV] | lifetime [mm] | #(events) |
-| --- | ------------ | ------------- | --------- |
-|     | 5            | 100           | 180k      |
-|     | 5            | 1000          | 360k      |
-|     | 15           | 1000          | 360k      |
-|     | 40           | 1000          | 180k      |
-|     | 40           | 1500          | 180k      |
+| m(ALP) [GeV] | lifetime [mm] | #(events) |
+| ------------ | ------------- | --------- |
+| 5            | 100           | 180k      |
+| 5            | 1000          | 360k      |
+| 15           | 1000          | 360k      |
+| 40           | 1000          | 180k      |
+| 40           | 1500          | 180k      |
 
 ```text
 # ma = 5 GeV, ctau = 1 mm (warning, double tagged)
