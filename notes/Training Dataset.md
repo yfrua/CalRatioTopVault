@@ -33,6 +33,7 @@
 
 # Number of jets obtained
 - training data fetch $\to$ data preparation
+- train/val/test = 0.75/0.15/0.10.
 - bracket after class/label name is the label value.
 
 **main_training_data_dijet**
