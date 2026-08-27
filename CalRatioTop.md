@@ -1,7 +1,7 @@
 # TODO
 - [x] Let NN can take arbitrary number of jet constituents (track, topo-cluster, muon segment)
 	- use a `valid` column in dataset to enable/disable that row
-- [ ] dataset preparation
+- [x] dataset preparation
 	- [x] drop events with negative or non-finite `mcEventWeight`.
 	- [x] drop jets with post-normalized constituents fp16_overflow ($\pm$ 65,504)
 		- fp16 is needed for `flash-attn` (FP16 / BF16 forward and backward, FP8 forward), which is 2x faster and more memory efficient than standard attention.
@@ -12,8 +12,8 @@
 			- Post-normalization |z| reached 155,650 → inf in fp16 → NaN loss.
 		- drop events by |z| cap of 1,000.
 			- Expected effect on real data: ~200/4.77M dijet-CR jets dropped (~0.004%), main region untouched.
-	- result of number of jets:
-		- train/val/test = 0.75/0.15/0.10
+	- number of jets obtained:
+		- train/val/test = 0.75/0.15/0.10.
 - [ ] hyperparameter optimization 
 	- two training scenarios: ttbar, dijet
 		- ttbar: SR: ttbar, signal, BIB. CR: ttbar, data
