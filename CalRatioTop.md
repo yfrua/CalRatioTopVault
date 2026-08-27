@@ -14,6 +14,8 @@
 			- Expected effect on real data: ~200/4.77M dijet-CR jets dropped (~0.004%), main region untouched.
 	- number of jets obtained:
 		- train/val/test = 0.75/0.15/0.10.
+		- 
+		- details in [Training Dataset](notes/Training%20Dataset.md)
 - [ ] hyperparameter optimization 
 	- two training scenarios: ttbar, dijet
 		- ttbar: SR: ttbar, signal, BIB. CR: ttbar, data

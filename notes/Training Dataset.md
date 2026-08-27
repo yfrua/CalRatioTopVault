@@ -28,5 +28,42 @@
 - [Trigger](Trigger.md)
 - two opposite sign $e \mu$.
 - clean jets
-- #TODO signal region veto
-	- logRatio?
+-  signal region veto
+	- logRatio
+
+# Number of jets obtained
+- training data fetch $\to$ data preparation
+- bracket after class name is the label value.
+
+**main_training_data_dijet**
+
+| file  |   total | QCD (0) | Signal (1) | BIB (2) |
+| :---- | ------: | ------: | ---------: | ------: |
+| train | 508,516 | 172,965 |    171,028 | 164,523 |
+| val   | 101,703 |  34,644 |     33,995 |  33,064 |
+| test  |  67,803 |  23,012 |     22,808 |  21,983 |
+
+**main_training_data_ttbar**
+
+| file  |   total | Ttbar (0) | Signal (1) | BIB (2) |
+| :---- | ------: | --------: | ---------: | ------: |
+| train | 748,379 |   412,183 |    171,097 | 165,099 |
+| val   | 149,675 |    82,488 |     34,179 |  33,008 |
+| test  |  99,785 |    54,947 |     22,841 |  21,997 |
+
+**control_region_dijet**
+
+| file  |     total |    MC (0) |  data (2) |
+| :---- | --------: | --------: | --------: |
+| train | 3,575,622 | 2,350,960 | 1,224,662 |
+| val   |   715,124 |   470,343 |   244,781 |
+| test  |   476,750 |   313,391 |   163,359 |
+
+**control_region_ttbar**
+
+| file  |     total |    MC (0) |  data (2) |
+| :---- | --------: | --------: | --------: |
+| train | 2,520,223 | 1,257,517 | 1,262,706 |
+| val   |   504,044 |   251,487 |   252,557 |
+| test  |   336,031 |   167,877 |   168,154 |
+
