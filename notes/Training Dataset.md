@@ -33,7 +33,7 @@
 
 # Number of jets obtained
 - training data fetch $\to$ data preparation
-- bracket after class name is the label value.
+- bracket after class/label name is the label value.
 
 **main_training_data_dijet**
 
@@ -42,6 +42,7 @@
 | train | 508,516 | 172,965 |    171,028 | 164,523 |
 | val   | 101,703 |  34,644 |     33,995 |  33,064 |
 | test  |  67,803 |  23,012 |     22,808 |  21,983 |
+| total | 678,022 | 230,621 |    227,831 | 219,570 |
 
 **main_training_data_ttbar**
 
@@ -50,6 +51,7 @@
 | train | 748,379 |   412,183 |    171,097 | 165,099 |
 | val   | 149,675 |    82,488 |     34,179 |  33,008 |
 | test  |  99,785 |    54,947 |     22,841 |  21,997 |
+| total | 997,839 |   549,618 |    228,117 | 220,104 |
 
 **control_region_dijet**
 
@@ -58,6 +60,7 @@
 | train | 3,575,622 | 2,350,960 | 1,224,662 |
 | val   |   715,124 |   470,343 |   244,781 |
 | test  |   476,750 |   313,391 |   163,359 |
+| total | 4,767,496 | 3,134,694 | 1,632,802 |
 
 **control_region_ttbar**
 
@@ -66,4 +69,5 @@
 | train | 2,520,223 | 1,257,517 | 1,262,706 |
 | val   |   504,044 |   251,487 |   252,557 |
 | test  |   336,031 |   167,877 |   168,154 |
+| total | 3,360,298 | 1,676,881 | 1,683,417 |
 
