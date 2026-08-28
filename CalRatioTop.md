@@ -21,6 +21,10 @@
 		- dijet: 
 			- SR: dijet/QCD, signal, BIB. 
 			- CR: dijet, data
+	- [ ] make `max_epochs` a hp, selected from {15, 20, 30, 40}
+		- [ ] make a `max_epochs`-colored pareto front plot
+			- see if training longer do improve val loss.
+			- implement after hp opt finish.
 
 # Note Navigation
 - defined analysis [channels](notes/Channels.md).
