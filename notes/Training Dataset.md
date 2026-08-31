@@ -1,4 +1,4 @@
-
+#TODO add more info about event selection
 # Signal region ([plots](https://gitlab.cern.ch/algolub/oldnewcomparison)):
 
 ## Signal (label=1): charming ALP model
