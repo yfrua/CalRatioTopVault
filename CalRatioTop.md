@@ -21,13 +21,16 @@
 		- dijet: 
 			- SR: dijet/QCD, signal, BIB. 
 			- CR: dijet, data
-	- [ ] make `max_epochs` a hp, selected from {15, 20, 30, 40}
-		- [ ] make a `max_epochs`-colored pareto front plot
+	- [x] make `max_epochs` a hp, selected from {15, 20, 30, 40}
+		- make a `max_epochs`-colored pareto front plot
 			- see if training longer do improve val loss.
-			- implement after hp opt finish.
+	- [ ] evaluate the optimized trials, see [NN Training Results](notes/NN%20Training%20Results.md).
 
 # Note Navigation
-- defined analysis [channels](notes/Channels.md).
+- defined analysis [Channels](notes/Channels.md).
+- DAOD used in the analysis: [DAOD](notes/DAOD.md)
+- description for training dataset: [Training Dataset](notes/Training%20Dataset.md)
+- subjective tier list for optimized models: [NN Training Results](notes/NN%20Training%20Results.md)
 
 # Resources 
 - CalRatio-Transformer-Trainer: [gitlab](https://gitlab.cern.ch/atlas-phys/exot/ueh/calratio_top/calratiognntrainer)
