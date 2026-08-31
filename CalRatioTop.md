@@ -3,6 +3,7 @@
 	- use a `valid` column in dataset to enable/disable that row
 - [x] dataset preparation
 	- [x] drop events with negative or non-finite `mcEventWeight`.
+		- [ ] how negative weight jets affects?
 	- [x] drop jets with post-normalized constituents fp16_overflow ($\pm$ 65,504)
 		- fp16 is needed for `flash-attn` (FP16 / BF16 forward and backward, FP8 forward), which is 2x faster and more memory efficient than standard attention.
 		- h5 files store raw float32, salt `autocast` casts normalized inputs to fp16.
