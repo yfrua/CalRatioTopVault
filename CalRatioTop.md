@@ -27,6 +27,13 @@
 		- make a `max_epochs`-colored pareto front plot
 			- see if training longer do improve val loss.
 	- [ ] evaluate the optimized trials, see [NN Training Results](notes/NN%20Training%20Results.md).
+- [ ] check NN consistency with TopCPToolkit
+	- signal and QCD test dataset
+		- Signal: `mc23_13p6TeV:DAOD_LLP1.47755565._000002.pool.root.1` from `mc23_13p6TeV:mc23_13p6TeV.562146.MGPy8EG_A14N23LO_ttbar_LL_ALP_fixed_ma5_ctau100.deriv.DAOD_LLP1.e8599_s4159_r15530_p7106`
+		- QCD: `mc23_13p6TeV:DAOD_LLP1.47659217._001354.pool.root.1` from `mc23_13p6TeV:mc23_13p6TeV.801167.Py8EG_A14NNPDF23LO_jj_JZ2.deriv.DAOD_LLP1.e8514_s4159_r15224_p7077`
+	- to better compare with TCPT
+		- [ ] add the index of the jet in the event when they are ordered by pT
+		- [ ] disable LLP-matching
 
 # Note Navigation
 - defined analysis [Channels](notes/Channels.md).
