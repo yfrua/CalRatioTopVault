@@ -15,6 +15,7 @@
 			- Expected effect on real data: ~200/4.77M dijet-CR jets dropped (~0.004%), main region untouched.
 	- number of jets obtained, dataset status: [Training Dataset](notes/Training%20Dataset.md)
 		- [ ] understand the dataset status result
+	- [ ] submit a PR for upstream.
 - [ ] hyperparameter optimization
 	- two training scenarios: ttbar, dijet
 		- ttbar: 
