@@ -14,7 +14,7 @@
 		- drop events by |z| cap of 1,000.
 			- Expected effect on real data: ~200/4.77M dijet-CR jets dropped (~0.004%), main region untouched.
 	- number of jets obtained, dataset status: [Training Dataset](notes/Training%20Dataset.md)
-		- [ ] understand the dataset status, .parquet file is excellent while .h5 is terrible.
+		- [ ] understand the dataset status result
 - [ ] hyperparameter optimization
 	- two training scenarios: ttbar, dijet
 		- ttbar: 
@@ -26,6 +26,7 @@
 	- [x] make `max_epochs` a hp, selected from {15, 20, 30, 40}
 		- make a `max_epochs`-colored pareto front plot
 			- see if training longer do improve val loss.
+	- [ ] ttbar training only consist of 2 best trials, indexed 0 and 2
 	- [ ] evaluate the optimized trials, see [NN Training Results](notes/NN%20Training%20Results.md).
 - [ ] check NN consistency with TopCPToolkit
 	- signal and QCD test dataset
