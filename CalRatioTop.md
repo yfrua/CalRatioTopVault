@@ -13,8 +13,7 @@
 			- Post-normalization |z| reached 155,650 → inf in fp16 → NaN loss.
 		- drop events by |z| cap of 1,000.
 			- Expected effect on real data: ~200/4.77M dijet-CR jets dropped (~0.004%), main region untouched.
-		- [ ] provide more details.
-	- number of jets obtained: [Training Dataset](notes/Training%20Dataset.md)
+	- number of jets obtained, dataset status: [Training Dataset](notes/Training%20Dataset.md)
 - [ ] hyperparameter optimization
 	- two training scenarios: ttbar, dijet
 		- ttbar: 
@@ -33,8 +32,8 @@
 		- QCD: `mc23_13p6TeV:DAOD_LLP1.47659217._001354.pool.root.1` from `mc23_13p6TeV:mc23_13p6TeV.801167.Py8EG_A14NNPDF23LO_jj_JZ2.deriv.DAOD_LLP1.e8514_s4159_r15224_p7077`
 	- to better compare with TCPT
 		- [x] add the index of the jet in the event when they are ordered by pT
-		- [x] disable LLP-matching
 	- wait for Pierre's reply.
+		- dataset almost perfect match, but prediction does not match well.
 
 # Note Navigation
 - defined analysis [Channels](notes/Channels.md).
