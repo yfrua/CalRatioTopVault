@@ -13,7 +13,7 @@
 			- Post-normalization |z| reached 155,650 → inf in fp16 → NaN loss.
 		- drop events by |z| cap of 1,000.
 			- Expected effect on real data: ~200/4.77M dijet-CR jets dropped (~0.004%), main region untouched.
-		- [ ] provide more details. 
+		- [ ] provide more details.
 	- number of jets obtained: [Training Dataset](notes/Training%20Dataset.md)
 - [ ] hyperparameter optimization
 	- two training scenarios: ttbar, dijet
