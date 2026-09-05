@@ -258,11 +258,11 @@ Applied to all datasets prior to dataset-specific cuts:
 
 **Per-Class Breakdown:**
 
-| Class (Label) | Total | Valid | Negative | Non-finite | Weight Sum |
-| :--- | ---: | ---: | ---: | ---: | :---: |
-| QCD (0) | 238,852 | 238,852 | 0 | 0 | 32.57 |
-| Signal (1) | 238,852 | 238,846 | 6 | 0 | 2.552 |
-| BIB (2) | 238,852 | 238,852 | 0 | 0 | 2.389e+05 |
+| Class (Label) |   Total |   Valid | Negative | Non-finite | Weight Sum |
+| :------------ | ------: | ------: | -------: | ---------: | :--------: |
+| QCD (0)       | 238,852 | 238,852 |        0 |          0 |   32.57    |
+| Signal (1)    | 238,852 | 238,846 |        6 |          0 |   2.552    |
+| BIB (2)       | 238,852 | 238,852 |        0 |          0 | 2.389e+05  |
 
 **Overflow & Outlier Breakdown:**
 - **Norm dict applied:** `/data/fye/CalRatio/salt/data/main_training_data_dijet_norm_dict.yaml`
