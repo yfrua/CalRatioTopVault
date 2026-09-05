@@ -73,30 +73,3 @@
 | total | 5,923,796 | 4,917,222 | 1,006,574 |
 
 # dataset status check
-#### Details: `main_training_data_ttbar.parquet` (FAIL)
-
-**Issues Detected:**
-- 2,364 negative mcEventWeight rows
-
-**mcEventWeight Breakdown:**
-- **Valid weights:** 1,042,010 / 1,044,374 (99.77%)
-- **Negative weights:** 2,364 (0.23%)
-- **Infinite weights:** 0 (0.00%)
-- **NaN weights:** 0 (0.00%)
-- **Weight range:** [8.542e-06, 537.5], mean=46.87, sum=4.883e+07
-
-**Per-Class Breakdown:**
-
-| Class (Label) |   Total |   Valid | Negative | Non-finite | Weight Sum |
-| :------------ | ------: | ------: | -------: | ---------: | :--------: |
-| Signal (1)    | 238,852 | 238,846 |        6 |          0 |   2.552    |
-| BIB (2)       | 238,852 | 238,852 |        0 |          0 | 2.389e+05  |
-| Ttbar (3)     | 566,670 | 564,312 |    2,358 |          0 |  4.86e+07  |
-
-**Overflow & Outlier Breakdown:**
-- **Norm dict applied:** `/data/fye/CalRatio/salt/data/main_training_data_ttbar_norm_dict.yaml`
-- **BF16 overflow events:** 0 (elements: 0)
-- **FP16 overflow events:** 0 (elements: 0)
-- **Outliers > 1000 sigma events:** 0 (elements: 0)
-- **Non-finite feature events:** 0 (elements: 0)
-- **Worst normalized |z|:** 6.44
