@@ -16,7 +16,7 @@
 	- number of jets obtained, dataset status: [Training Dataset](notes/Training%20Dataset.md)
 		- [ ] understand the dataset status result (blocked by the need to re-produce training dataset)
 	- [ ] submit a PR for upstream
-		- add ttbar SR and CR dataset, fix muon-segment matching to jet error.
+		- add ttbar SR and CR dataset fetching, fix muon-segment matching to jet error.
 		- [ ] need more evidence to show that ttbar dataset is needed?
 		- [ ] redo training dataset fetch, including main dataset (handled by Alex before)
 			- We want more jets? Currently it has been truncated to have the same number of QCD/signal/BIB jets.
