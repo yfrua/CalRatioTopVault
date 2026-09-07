@@ -22,7 +22,7 @@ Applied to all datasets prior to dataset-specific cuts:
 
 ---
 
-# Signal region ([plots](https://gitlab.cern.ch/algolub/oldnewcomparison))
+# Signal region ([plots](https://gitlab.cern.ch/fye/oldnewcomparison))
 
 ## Signal (label=1): charming ALP model
 
@@ -55,8 +55,7 @@ Applied to all datasets prior to dataset-specific cuts:
 
 - **Event-Level Trigger Selection:**
 	- Evaluated on data via Trigger Decision Tool (TDT).
-	- Signal inclusive trigger fired AND BIB removal trigger not fired:
-	$$\bigvee_{(T_{\text{incl}}, T_{\text{rmbib}})} \Big( \text{tdt\_chain\_fired}(T_{\text{incl}}) \;\land\; \neg \text{tdt\_chain\_fired}(T_{\text{rmbib}}) \Big)$$
+	- Signal inclusive trigger fired AND BIB removal trigger not fired.
 	- Trigger pairs:
 		1. `HLT_j30_CLEANllp_momemfrac006_calratio_L1jJ160` $\land$ $\neg$ `...calratiormbib_L1jJ160`
 		2. `HLT_j30_CLEANllp_momemfrac006_calratio_L1eTAU140` $\land$ $\neg$ `...calratiormbib_L1eTAU140`
