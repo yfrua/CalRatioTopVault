@@ -15,7 +15,10 @@
 			- Expected effect on real data: ~200/4.77M dijet-CR jets dropped (~0.004%), main region untouched.
 	- number of jets obtained, dataset status: [Training Dataset](notes/Training%20Dataset.md)
 		- [ ] understand the dataset status result
-	- [ ] submit a PR for upstream.
+	- [ ] submit a PR for upstream
+		- add ttbar SR and CR dataset, fix muon-segment matching
+		- [ ] redo training dataset fetch, including main dataset (handled by Alex before)
+			- We want more jets? Currently it has been truncated to have the same number of QCD/signal/BIB jets.
 - [ ] hyperparameter optimization
 	- two training scenarios: ttbar, dijet
 		- ttbar: 
