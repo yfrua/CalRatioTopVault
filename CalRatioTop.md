@@ -14,23 +14,26 @@
 		- drop events by |z| cap of 1,000.
 			- Expected effect on real data: ~200/4.77M dijet-CR jets dropped (~0.004%), main region untouched.
 	- number of jets obtained, dataset status: [Training Dataset](notes/Training%20Dataset.md)
-		- [ ] understand the dataset status result
+		- [ ] understand the dataset status result (blocked by the need to re-produce training dataset)
 	- [ ] submit a PR for upstream
-		- add ttbar SR and CR dataset, fix muon-segment matching
+		- add ttbar SR and CR dataset, fix muon-segment matching to jet error.
+		- [ ] need more evidence to show that ttbar dataset is needed?
 		- [ ] redo training dataset fetch, including main dataset (handled by Alex before)
 			- We want more jets? Currently it has been truncated to have the same number of QCD/signal/BIB jets.
+			- Given the DIDs, I can do the fetching myself, should ask Alex for that.
 - [ ] hyperparameter optimization
 	- two training scenarios: ttbar, dijet
 		- ttbar: 
 			- SR: ttbar, signal, BIB. 
-			- CR: ttbar, data
+			- CR: ttbar, data.
 		- dijet: 
 			- SR: dijet/QCD, signal, BIB. 
-			- CR: dijet, data
+			- CR: dijet, data.
 	- [x] make `max_epochs` a hp, selected from {15, 20, 30, 40}
 		- make a `max_epochs`-colored pareto front plot
 			- see if training longer do improve val loss.
-	- [ ] ttbar training only consist of 2 best trials, indexed 0 and 2
+	- ttbar training only consist of 2 best trials, indexed 0 and 2.
+		- fixed in [MR!32](https://gitlab.cern.ch/atlas-phys/exot/ueh/calratio_top/calratiognntrainer/-/merge_requests/32/commits).
 	- [ ] evaluate the optimized trials, see [NN Training Results](notes/NN%20Training%20Results.md).
 - [ ] check NN consistency with TopCPToolkit
 	- signal and QCD test dataset
