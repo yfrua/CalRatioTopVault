@@ -22,6 +22,7 @@
 		- [ ] redo training dataset fetch, including main dataset (handled by Alex before)
 			- We want more jets? Currently it has been truncated to have the same number of QCD/signal/BIB jets.
 			- Given the DIDs, I can do the fetching myself, should ask Alex for that.
+	- [ ] add `PixelHits/Holes/Shared` to track vars for training
 - [ ] hyperparameter optimization
 	- two training scenarios: ttbar, dijet
 		- ttbar: 
