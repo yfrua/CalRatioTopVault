@@ -42,6 +42,7 @@
 	- [x] dataset almost perfect match, but prediction does not match well.
 		- caused by config key-order divergence.
 		- details in [Consistency Test Fix](notes/Consistency%20Test%20Fix.md).
+	- [ ] retrain the model with fix (better with dataset fix in place)
 
 # Note Navigation
 - defined analysis [Channels](notes/Channels.md).
