@@ -39,8 +39,8 @@
 		- QCD: `mc23_13p6TeV:DAOD_LLP1.47659217._001354.pool.root.1` from `mc23_13p6TeV:mc23_13p6TeV.801167.Py8EG_A14NNPDF23LO_jj_JZ2.deriv.DAOD_LLP1.e8514_s4159_r15224_p7077`
 	- to better compare with TCPT
 		- [x] add the index of the jet in the event when they are ordered by pT
-	- wait for Pierre's reply.
-		- dataset almost perfect match, but prediction does not match well.
+	- dataset almost perfect match, but prediction does not match well.
+		- suspect a precision, attention type error
 
 # Note Navigation
 - defined analysis [Channels](notes/Channels.md).
