@@ -44,7 +44,7 @@
 		- caused by config key-order divergence.
 		- details in [Consistency Test Fix](notes/Consistency%20Test%20Fix.md), fixed in [MR!33](https://gitlab.cern.ch/atlas-phys/exot/ueh/calratio_top/calratiognntrainer/-/merge_requests/33).
 	- [x] retrain the model with fix
-		- check point file for `V02_pre_fixed`: `/data/fye/CalRatio/salt/optimized_model/calRatioTransformer_20260909-T110453`
+			- check point file for `V02_pre_fixed`: `/data/fye/CalRatio/salt/optimized_model/calRatioTransformer_20260909-T110453/ckpts/epoch=018-val_loss=0.24262.ckpt`
 
 # Note Navigation
 - defined analysis [Channels](notes/Channels.md).
