@@ -17,7 +17,8 @@
 		- [ ] understand the dataset status result (blocked by the need to re-produce training dataset)
 	- [x] open a PR for upstream repo, wait for it being merged
 		- add ttbar SR and CR dataset fetching, fix muon-segment matching to jet error.
-		- [ ] redo training dataset fetch, including main dataset (handled by Alex before)
+		- [ ] redo training dataset fetch, including main dataset
+		- [ ] make new distribution plot
 	- [ ] add `PixelHits/Holes/Shared` to track vars for training
 - [ ] hyperparameter optimization
 	- two training scenarios: ttbar, dijet
@@ -41,7 +42,7 @@
 		- [x] add the index of the jet in the event when they are ordered by pT
 	- [x] dataset almost perfect match, but prediction does not match well.
 		- caused by config key-order divergence.
-		- details in [Consistency Test Fix](notes/Consistency%20Test%20Fix.md).
+		- details in [Consistency Test Fix](notes/Consistency%20Test%20Fix.md), fixed in [MR!33](https://gitlab.cern.ch/atlas-phys/exot/ueh/calratio_top/calratiognntrainer/-/merge_requests/33).
 	- [ ] retrain the model with fix (better with dataset fix in place)
 
 # Note Navigation
