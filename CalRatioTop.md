@@ -17,8 +17,9 @@
 		- [ ] understand the dataset status result (blocked by the need to re-produce training dataset)
 	- [x] open a PR for upstream repo, wait for it being merged
 		- add ttbar SR and CR dataset fetching, fix muon-segment matching to jet error.
-		- [ ] redo training dataset fetch, including main dataset
-		- [ ] make new distribution plot
+		- [x] redo training dataset fetch, including main dataset
+			- [ ] dijet CR file not in place
+		- [x] make new distribution plot
 			- can see that jet/cluster/track pT slop sharpened at ~150 GeV due to only use JZ2 slice (60-160 GeV at generateor-level).
 	- [ ] add `PixelHits/Holes/Shared` to track vars for training
 - [ ] hyperparameter optimization
