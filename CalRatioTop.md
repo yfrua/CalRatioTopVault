@@ -20,7 +20,6 @@
 		- [ ] redo training dataset fetch, including main dataset
 		- [ ] make new distribution plot
 	- [ ] add `PixelHits/Holes/Shared` to track vars for training
-- [ ] Merge branch 'feat/report-dataset-status' into 'main'
 - [ ] hyperparameter optimization
 	- two training scenarios: ttbar, dijet
 		- ttbar: 
