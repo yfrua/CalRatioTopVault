@@ -19,7 +19,7 @@
 		- add ttbar SR and CR dataset fetching, fix muon-segment matching to jet error.
 		- [ ] redo training dataset fetch, including main dataset
 		- [ ] make new distribution plot
-			- can see that jet pT slop sharpened at ~150 GeV due to only use JZ2 slice (.
+			- can see that jet/cluster/track pT slop sharpened at ~150 GeV due to only use JZ2 slice (60-160 GeV at generateor-level).
 	- [ ] add `PixelHits/Holes/Shared` to track vars for training
 - [ ] hyperparameter optimization
 	- two training scenarios: ttbar, dijet
