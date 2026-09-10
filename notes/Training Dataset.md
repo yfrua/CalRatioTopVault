@@ -152,3 +152,68 @@ Applied to all datasets prior to dataset-specific cuts:
 | total | 5,923,796 | 4,917,222 | 1,006,574 |
 
 # dataset status check
+## Dataset Health & Overflow Summary
+
+| Dataset                    |    Rows | Neg Weights | Non-finite W | BF16 Over | FP16 Over | >1000 sigma | Max \|z\| |  Status  |
+| :------------------------- | ------: | ----------: | -----------: | --------: | --------: | ----------: | --------: | :------: |
+| main_training_file.parquet | 716,601 |   6 (0.00%) |    0 (0.00%) |         0 |         0 |           3 |  17749.58 | **FAIL** |
+
+---
+
+## `main_training_file.parquet` (FAIL)
+
+**Issues Detected:**
+- 6 negative `mcEventWeight` rows
+
+**`mcEventWeight` Breakdown:**
+- **Valid weights:** 716,595 / 716,601 (100.00%)
+- **Negative weights:** 6 (0.00%)
+- **Infinite weights:** 0 (0.00%)
+- **NaN weights:** 0 (0.00%)
+- **Weight range:** [4.537e-08, 1], mean=0.3334, sum=2.389e+05
+
+**Per-Class Breakdown:**
+
+| Class (Label) |   Total |   Valid | Negative | Non-finite | Weight Sum |
+| :------------ | ------: | ------: | -------: | ---------: | :--------: |
+| QCD (0)       | 238,867 | 238,867 |        0 |          0 |   32.19    |
+| Signal (1)    | 238,867 | 238,861 |        6 |          0 |   2.552    |
+| BIB (2)       | 238,867 | 238,867 |        0 |          0 | 2.389e+05  |
+
+**Overflow & Outlier Breakdown:**
+- **Norm dict applied:** `/data/fye/CalRatio/salt/data/main_training_data_ttbar_norm_dict.yaml`
+- **BF16 overflow events:** 0 (elements: 0)
+- **FP16 overflow events:** 0 (elements: 0)
+- **Outliers > 1000 sigma events:** 3 (elements: 3)
+- **Non-finite feature events:** 0 (elements: 0)
+- **Worst normalized |z|:** 17749.58
+
+**Top Extreme Features:**
+
+| Feature | Max \|z\| | Example Raw | Mean | Std | BF16 Over | FP16 Over | >1000 sigma | NaN/Inf |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| tracks.pt | 17749.58 | 2.49e+05 | 9.023 | 14.03 | 0 | 0 | 3 | 0 |
+| clusters.l4ecal | 459.76 | 5.617e+05 | 338.6 | 1221 | 0 | 0 | 0 | 0 |
+| msegs.chiSquared | 209.76 | 4249 | 10.65 | 20.21 | 0 | 0 | 0 | 0 |
+| clusters.l1ecal | 160.57 | 2.647e+05 | 436.4 | 1646 | 0 | 0 | 0 | 0 |
+| clusters.l1hcal | 156.34 | 1.246e+06 | 762.5 | 7967 | 0 | 0 | 0 | 0 |
+| clusters.l3ecal | 113.66 | 1.47e+06 | 3689 | 1.29e+04 | 0 | 0 | 0 | 0 |
+| clusters.l4hcal | 102.41 | 8.592e+05 | 889.5 | 8381 | 0 | 0 | 0 | 0 |
+| clusters.l2hcal | 91.78 | 1.457e+06 | 2611 | 1.585e+04 | 0 | 0 | 0 | 0 |
+| clusters.time | 79.60 | 379.4 | 0.09219 | 4.765 | 0 | 0 | 0 | 0 |
+| clusters.l3hcal | 70.89 | 1.04e+06 | 2068 | 1.464e+04 | 0 | 0 | 0 | 0 |
+
+**Extreme Feature Value Examples (Top by |z|):**
+
+| Row | Event Number | Feature | Raw Value | Mean | Std | \|z\| |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 245,780 | 86,198,880 | tracks.pt | 2.49e+05 | 9.023 | 14.03 | 17749.58 |
+| 697,866 | 2,207,101,797 | tracks.pt | 7.777e+04 | 9.023 | 14.03 | 5544.14 |
+| 372,096 | 32,118,468 | tracks.pt | 3.112e+04 | 9.023 | 14.03 | 2217.78 |
+| 618,698 | 2,835,208,862 | tracks.pt | 9157 | 9.023 | 14.03 | 652.24 |
+| 657,485 | 2,361,014,468 | tracks.pt | 8525 | 9.023 | 14.03 | 607.12 |
+| 618,081 | 2,414,232,451 | clusters.l4ecal | 5.617e+05 | 338.6 | 1221 | 459.76 |
+| 478,963 | 2,133,715,419 | tracks.pt | 5681 | 9.023 | 14.03 | 404.36 |
+| 590,555 | 869,416,024 | clusters.l4ecal | 4.689e+05 | 338.6 | 1221 | 383.82 |
+| 110,864 | 92,128 | clusters.l4ecal | 4.141e+05 | 338.6 | 1221 | 338.92 |
+| 194,363 | 79,154 | clusters.l4ecal | 4.127e+05 | 338.6 | 1221 | 337.79 |
