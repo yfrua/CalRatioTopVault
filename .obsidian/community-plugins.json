@@ -3,5 +3,6 @@
   "obsidian-git",
   "global-proxy",
   "omnisearch",
-  "settings-search"
+  "settings-search",
+  "advanced-rename-and-delete-handler"
 ]
