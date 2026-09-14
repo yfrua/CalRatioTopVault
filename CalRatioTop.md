@@ -3,7 +3,10 @@
 	- use a `valid` column in dataset to enable/disable that row
 - [x] dataset preparation
 	- [x] drop events with negative or non-finite `mcEventWeight`.
-		- [ ] how negative weight jets affects?
+		- [x] how negative weight jets affects?
+			- analyzed in [MR!42](https://gitlab.cern.ch/atlas-phys/exot/ueh/calratio_top/calratiognntrainer/-/merge_requests/42).
+			- In weighted space, the differential distortion across $p_T$ bins averages **$0.73\%$**, peaking at **$1.5\%$** in the far tail ($p_T > 240$ GeV).
+			- This distortion is well within standard experimental systematic uncertainties ($5\% - 10\%$).
 	- [x] drop jets with post-normalized constituents fp16_overflow ($\pm$ 65,504)
 		- fp16 is needed for `flash-attn` (FP16 / BF16 forward and backward, FP8 forward), which is 2x faster and more memory efficient than standard attention.
 		- h5 files store raw float32, salt `autocast` casts normalized inputs to fp16.
@@ -34,7 +37,7 @@
 		- make a `max_epochs`-colored pareto front plot
 			- see if training longer do improve val loss.
 	- ttbar training only consist of 2 best trials, indexed 0 and 2.
-		- fixed in [MR!32](https://gitlab.cern.ch/atlas-phys/exot/ueh/calratio_top/calratiognntrainer/-/merge_requests/32/commits).
+		- trajectory pruning went wrong, fixed in [MR!32](https://gitlab.cern.ch/atlas-phys/exot/ueh/calratio_top/calratiognntrainer/-/merge_requests/32/commits).
 	- [ ] evaluate the optimized trials, see [NN Training Results](notes/NN%20Training%20Results.md).
 - [ ] check NN consistency with TopCPToolkit
 	- signal and QCD test dataset
