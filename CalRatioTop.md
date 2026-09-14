@@ -35,7 +35,7 @@
 			- CR: dijet, data.
 	- [x] make `max_epochs` a hp, selected from {15, 20, 30, 40}
 		- make a `max_epochs`-colored pareto front plot to see if training longer do improve val loss.
-		- see [[notes/Max Epochs Impact on the Pareto Front]]
+		- details in [[notes/Max Epochs Impact on the Pareto Front]]
 	- ttbar training only consist of 2 best trials, indexed 0 and 2.
 		- trajectory pruning went wrong, fixed in [MR!32](https://gitlab.cern.ch/atlas-phys/exot/ueh/calratio_top/calratiognntrainer/-/merge_requests/32/commits).
 	- [ ] retrain models with optimized parameters 
