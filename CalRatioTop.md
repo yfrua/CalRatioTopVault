@@ -14,14 +14,14 @@
 		- drop events by |z| cap of 1,000.
 			- Expected effect on real data: ~200/4.77M dijet-CR jets dropped (~0.004%), main region untouched.
 	- number of jets obtained, dataset status: [Training Dataset](notes/Training%20Dataset.md)
-		- [ ] understand the dataset status result (blocked by the need to re-produce training dataset)
+		- [x] understand the dataset status result
 	- [x] open a PR for upstream repo, wait for it being merged
 		- add ttbar SR and CR dataset fetching, fix muon-segment matching to jet error.
 		- [x] redo training dataset fetch, including main dataset
 			- [ ] dijet CR file not in place
 		- [x] make new distribution plot
-			- can see that jet/cluster/track pT slop sharpened at ~150 GeV due to only use JZ2 slice (60-160 GeV at generateor-level).
-	- [ ] add `PixelHits/Holes/Shared` to track vars for training
+			- can see that jet/cluster/track pT slop sharpened at ~150 GeV due to only use JZ2 slice (60-160 GeV at generator-level).
+	- [x] add `PixelHits/Holes/Shared` to track vars for training
 - [ ] hyperparameter optimization
 	- two training scenarios: ttbar, dijet
 		- ttbar: 
