@@ -39,7 +39,7 @@
 		- details in [Max Epochs Impact on the Pareto Front](notes/Max%20Epochs%20Impact%20on%20the%20Pareto%20Front.md).
 	- ttbar training only consist of 2 best trials, indexed 0 and 2.
 		- trajectory pruning went wrong, fixed in [MR!32](https://gitlab.cern.ch/atlas-phys/exot/ueh/calratio_top/calratiognntrainer/-/merge_requests/32/commits).
-	- [ ] retrain models with optimized parameters 
+	- [x] retrain models with optimized parameters 
 	- [ ] evaluate the optimized trials, see [NN Training Results](notes/NN%20Training%20Results.md).
 - [x] check NN consistency with TopCPToolkit
 	- signal and QCD test dataset
