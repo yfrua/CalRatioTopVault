@@ -1,6 +1,6 @@
 # Trial 4 Performance Plots
 
-[Index Note](../Optimized%20Models%20Plots.md) | [NN Training Results](../NN%20Training%20Results.md) | [Trial 8 →](Trial%208.md)
+[Index Note](../Optimized%20Models%20Plots.md) | [Trial 8 →](Trial%208.md)
 
 ---
 

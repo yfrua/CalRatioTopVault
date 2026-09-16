@@ -1,6 +1,6 @@
 # Trial 300 Performance Plots
 
-[← Trial 269](Trial%20269.md) | [Index Note](../Optimized%20Models%20Plots.md) | [NN Training Results](../NN%20Training%20Results.md)
+[← Trial 269](Trial%20269.md) | [Index Note](../Optimized%20Models%20Plots.md)
 
 ---
 

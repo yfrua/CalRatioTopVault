@@ -7,24 +7,24 @@ This dashboard provides direct access and embedded visualizations for the **16 P
 
 ## Pareto Front Models Summary
 
-| Trial ID | Max Epochs | SR Val Loss | CR Val Loss | Pareto Regime | Plotted Epochs | Dedicated Note |
-| :---: | :---: | :---: | :---: | :--- | :---: | :---: |
-| **4** | 40 | 0.54083 | 0.4392 | Central balanced knee | `epoch030` - `epoch039` | [Trial 4](Optimized%20Models/Trial%204.md) |
-| **8** | 20 | 0.69029 | 0.18055 | Low CR loss | `epoch010` - `epoch019` | [Trial 8](Optimized%20Models/Trial%208.md) |
-| **13** | 40 | 0.5564 | 0.28801 | Central balanced knee | `epoch030` - `epoch039` | [Trial 13](Optimized%20Models/Trial%2013.md) |
-| **25** | 30 | 0.5148 | 0.58522 | Extreme SR focus | `epoch020` - `epoch029` | [Trial 25](Optimized%20Models/Trial%2025.md) |
-| **45** | 30 | 0.69758 | 0.14171 | Extreme CR focus | `epoch020` - `epoch029` | [Trial 45](Optimized%20Models/Trial%2045.md) |
-| **46** | 40 | 0.94563 | 0.09172 | Absolute lowest CR loss (bottom-right) | `epoch030` - `epoch039` | [Trial 46](Optimized%20Models/Trial%2046.md) |
-| **47** | 20 | 0.51235 | 0.60071 | Absolute lowest SR loss (top-left) | `epoch010` - `epoch019` | [Trial 47](Optimized%20Models/Trial%2047.md) |
-| **48** | 40 | 0.5564 | 0.28801 | Central balanced knee | `epoch030` - `epoch039` | [Trial 48](Optimized%20Models/Trial%2048.md) |
-| **83** | 40 | 0.53423 | 0.54827 | Transition to central knee | `epoch030` - `epoch039` | [Trial 83](Optimized%20Models/Trial%2083.md) |
-| **125** | 30 | 0.51662 | 0.55014 | Extreme SR focus | `epoch020` - `epoch029` | [Trial 125](Optimized%20Models/Trial%20125.md) |
-| **167** | 15 | 0.59464 | 0.2323 | Low CR loss | `epoch005` - `epoch014` | [Trial 167](Optimized%20Models/Trial%20167.md) |
-| **171** | 40 | 0.54538 | 0.34087 | Central balanced knee | `epoch030` - `epoch039` | [Trial 171](Optimized%20Models/Trial%20171.md) |
-| **175** | 40 | 0.53502 | 0.45329 | Central balanced knee | `epoch030` - `epoch039` | [Trial 175](Optimized%20Models/Trial%20175.md) |
-| **265** | 20 | 0.57107 | 0.233 | Transition to CR focus | `epoch010` - `epoch019` | [Trial 265](Optimized%20Models/Trial%20265.md) |
-| **269** | 15 | 0.60486 | 0.21679 | Low CR loss | `epoch005` - `epoch014` | [Trial 269](Optimized%20Models/Trial%20269.md) |
-| **300** | 15 | 0.54109 | 0.38884 | Central balanced knee | `epoch005` - `epoch014` | [Trial 300](Optimized%20Models/Trial%20300.md) |
+| Trial ID | Max Epochs | SR Val Loss | CR Val Loss | Pareto Regime                          |     Plotted Epochs      |                 Dedicated Note                 |
+| :------: | :--------: | :---------: | :---------: | :------------------------------------- | :---------------------: | :--------------------------------------------: |
+|  **4**   |     40     |   0.54083   |   0.4392    | Central balanced knee                  | `epoch030` - `epoch039` |   [Trial 4](Optimized%20Models/Trial%204.md)   |
+|  **8**   |     20     |   0.69029   |   0.18055   | Low CR loss                            | `epoch010` - `epoch019` |   [Trial 8](Optimized%20Models/Trial%208.md)   |
+|  **13**  |     40     |   0.5564    |   0.28801   | Central balanced knee                  | `epoch030` - `epoch039` |  [Trial 13](Optimized%20Models/Trial%2013.md)  |
+|  **25**  |     30     |   0.5148    |   0.58522   | Extreme SR focus                       | `epoch020` - `epoch029` |  [Trial 25](Optimized%20Models/Trial%2025.md)  |
+|  **45**  |     30     |   0.69758   |   0.14171   | Extreme CR focus                       | `epoch020` - `epoch029` |  [Trial 45](Optimized%20Models/Trial%2045.md)  |
+|  **46**  |     40     |   0.94563   |   0.09172   | Absolute lowest CR loss (bottom-right) | `epoch030` - `epoch039` |  [Trial 46](Optimized%20Models/Trial%2046.md)  |
+|  **47**  |     20     |   0.51235   |   0.60071   | Absolute lowest SR loss (top-left)     | `epoch010` - `epoch019` |  [Trial 47](Optimized%20Models/Trial%2047.md)  |
+|  **48**  |     40     |   0.5564    |   0.28801   | Central balanced knee                  | `epoch030` - `epoch039` |  [Trial 48](Optimized%20Models/Trial%2048.md)  |
+|  **83**  |     40     |   0.53423   |   0.54827   | Transition to central knee             | `epoch030` - `epoch039` |  [Trial 83](Optimized%20Models/Trial%2083.md)  |
+| **125**  |     30     |   0.51662   |   0.55014   | Extreme SR focus                       | `epoch020` - `epoch029` | [Trial 125](Optimized%20Models/Trial%20125.md) |
+| **167**  |     15     |   0.59464   |   0.2323    | Low CR loss                            | `epoch005` - `epoch014` | [Trial 167](Optimized%20Models/Trial%20167.md) |
+| **171**  |     40     |   0.54538   |   0.34087   | Central balanced knee                  | `epoch030` - `epoch039` | [Trial 171](Optimized%20Models/Trial%20171.md) |
+| **175**  |     40     |   0.53502   |   0.45329   | Central balanced knee                  | `epoch030` - `epoch039` | [Trial 175](Optimized%20Models/Trial%20175.md) |
+| **265**  |     20     |   0.57107   |    0.233    | Transition to CR focus                 | `epoch010` - `epoch019` | [Trial 265](Optimized%20Models/Trial%20265.md) |
+| **269**  |     15     |   0.60486   |   0.21679   | Low CR loss                            | `epoch005` - `epoch014` | [Trial 269](Optimized%20Models/Trial%20269.md) |
+| **300**  |     15     |   0.54109   |   0.38884   | Central balanced knee                  | `epoch005` - `epoch014` | [Trial 300](Optimized%20Models/Trial%20300.md) |
 
 ---
 

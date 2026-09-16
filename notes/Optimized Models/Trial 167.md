@@ -1,6 +1,6 @@
 # Trial 167 Performance Plots
 
-[← Trial 125](Trial%20125.md) | [Index Note](../Optimized%20Models%20Plots.md) | [NN Training Results](../NN%20Training%20Results.md) | [Trial 171 →](Trial%20171.md)
+[← Trial 125](Trial%20125.md) | [Index Note](../Optimized%20Models%20Plots.md) | [Trial 171 →](Trial%20171.md)
 
 ---
 

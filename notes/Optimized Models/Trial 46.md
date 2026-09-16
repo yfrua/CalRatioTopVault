@@ -1,6 +1,6 @@
 # Trial 46 Performance Plots
 
-[← Trial 45](Trial%2045.md) | [Index Note](../Optimized%20Models%20Plots.md) | [NN Training Results](../NN%20Training%20Results.md) | [Trial 47 →](Trial%2047.md)
+[← Trial 45](Trial%2045.md) | [Index Note](../Optimized%20Models%20Plots.md) | [Trial 47 →](Trial%2047.md)
 
 ---
 
