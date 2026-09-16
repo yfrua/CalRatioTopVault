@@ -40,7 +40,7 @@
 	- ttbar training only consist of 2 best trials, indexed 0 and 2.
 		- trajectory pruning went wrong, fixed in [MR!32](https://gitlab.cern.ch/atlas-phys/exot/ueh/calratio_top/calratiognntrainer/-/merge_requests/32/commits).
 	- [x] retrain models with optimized parameters 
-	- [ ] evaluate the optimized trials, see [NN Training Results](notes/NN%20Training%20Results.md) and [Optimized Models Plots](notes/Optimized%20Models%20Plots.md).
+	- [ ] evaluate the optimized trials, see [Optimized Models Plots](notes/Optimized%20Models%20Plots.md).
 - [x] check NN consistency with TopCPToolkit
 	- signal and QCD test dataset
 		- Signal: `mc23_13p6TeV:DAOD_LLP1.47755565._000002.pool.root.1` from `mc23_13p6TeV:mc23_13p6TeV.562146.MGPy8EG_A14N23LO_ttbar_LL_ALP_fixed_ma5_ctau100.deriv.DAOD_LLP1.e8599_s4159_r15530_p7106`
@@ -56,7 +56,6 @@
 - defined analysis [Channels](notes/Channels.md).
 - DAOD used in the analysis: [DAOD](notes/DAOD.md)
 - description for training dataset: [Training Dataset](notes/Training%20Dataset.md)
-- subjective tier list for previous models: [NN Training Results](notes/NN%20Training%20Results.md)
 - performance plots dashboard for optimized models: [Optimized Models Plots](notes/Optimized%20Models%20Plots.md)
 
 # Resources 
