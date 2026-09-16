@@ -15,18 +15,18 @@
 
 ### Subjective Evaluation Tier List
 
-| Epoch | Tier | Notes / Remarks               |
-| :---: | :--: | :---------------------------- |
-|  010  |  C   | signal score is strangely low |
-|  011  |  C   |                               |
-|  012  |  C   |                               |
-|  013  |  C   |                               |
-|  014  |  C   |                               |
-|  015  |      |                               |
-|  016  |      |                               |
-|  017  |      |                               |
-|  018  |      |                               |
-|  019  |      |                               |
+| Epoch | Tier | Notes / Remarks                          |
+| :---: | :--: | :--------------------------------------- |
+|  010  |  C   | signal score is strangely low            |
+|  011  |  C   |                                          |
+|  012  |  C   |                                          |
+|  013  |  C   |                                          |
+|  014  |  C   |                                          |
+|  015  |  C+  | better CR performance than previous ones |
+|  016  |      |                                          |
+|  017  |      |                                          |
+|  018  |      |                                          |
+|  019  |      |                                          |
 
 ---
 
