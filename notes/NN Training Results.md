@@ -185,3 +185,16 @@ AUC=0.996
 	- 10-12, 19: C
 	- 13-14, 18: C+
 	- 15-17: B
+
+# Optimized Pareto Front Models
+- **Master Plots Dashboard**: [Optimized Models Plots](Optimized%20Models%20Plots.md)
+- **16 Pareto-Optimal Trials**:
+	- **Absolute lowest SR loss**: [Trial 47](Optimized%20Models/Trial%2047.md) (max_epochs=20)
+	- **Extreme SR focus**: [Trial 25](Optimized%20Models/Trial%2025.md) (max_epochs=30), [Trial 125](Optimized%20Models/Trial%20125.md) (max_epochs=30)
+	- **Transition / Knee**: [Trial 83](Optimized%20Models/Trial%2083.md) (max_epochs=40)
+	- **Central balanced knee**: [Trial 4](Optimized%20Models/Trial%204.md) (max_epochs=40), [Trial 13](Optimized%20Models/Trial%2013.md) (max_epochs=40), [Trial 48](Optimized%20Models/Trial%2048.md) (max_epochs=40), [Trial 171](Optimized%20Models/Trial%20171.md) (max_epochs=40), [Trial 175](Optimized%20Models/Trial%20175.md) (max_epochs=40), [Trial 300](Optimized%20Models/Trial%20300.md) (max_epochs=15)
+	- **Transition to CR focus**: [Trial 265](Optimized%20Models/Trial%20265.md) (max_epochs=20)
+	- **Low CR loss**: [Trial 8](Optimized%20Models/Trial%208.md) (max_epochs=20), [Trial 167](Optimized%20Models/Trial%20167.md) (max_epochs=15), [Trial 269](Optimized%20Models/Trial%20269.md) (max_epochs=15)
+	- **Extreme CR focus**: [Trial 45](Optimized%20Models/Trial%2045.md) (max_epochs=30)
+	- **Absolute lowest CR loss**: [Trial 46](Optimized%20Models/Trial%2046.md) (max_epochs=40)
+
