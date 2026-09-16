@@ -9,8 +9,8 @@ This note displays the kinematic and constituent distribution plots for the $t\b
 ## Overview Distributions
 
 ### Summary & Jet Kinematics
-| Linear Scale | Log Scale |
-| :---: | :---: |
+|                                  Linear Scale                                   |                                    Log Scale                                    |
+| :-----------------------------------------------------------------------------: | :-----------------------------------------------------------------------------: |
 | ![Jets Summary Lin](../plots/training_vars_ttbar/overview_jets_summary_lin.png) | ![Jets Summary Log](../plots/training_vars_ttbar/overview_jets_summary_log.png) |
 
 ### Constituent Tracks
