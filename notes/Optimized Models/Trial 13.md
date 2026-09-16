@@ -14,6 +14,7 @@
 - **Plotted Epochs**: `epoch030` to `epoch039` (10 epochs total)
 
 ### Subjective Evaluation Tier List
+all D
 
 | Epoch | Tier | Notes / Remarks |
 | :---: | :--: | :-------------- |

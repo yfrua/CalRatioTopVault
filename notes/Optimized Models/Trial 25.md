@@ -14,19 +14,20 @@
 - **Plotted Epochs**: `epoch020` to `epoch029` (10 epochs total)
 
 ### Subjective Evaluation Tier List
+- fairly good SR performance
 
-| Epoch | Tier | Notes / Remarks |
-| :---: | :---: | :--- |
-| 020 |  |  |
-| 021 |  |  |
-| 022 |  |  |
-| 023 |  |  |
-| 024 |  |  |
-| 025 |  |  |
-| 026 |  |  |
-| 027 |  |  |
-| 028 |  |  |
-| 029 |  |  |
+| Epoch | Tier | Notes / Remarks                   |
+| :---: | :--: | :-------------------------------- |
+|  020  |  B   | best CR performance in this trial |
+|  021  |  B-  |                                   |
+|  022  |  B-  |                                   |
+|  023  |  B-  |                                   |
+|  024  |  B-  |                                   |
+|  025  |  B-  |                                   |
+|  026  |  B-  |                                   |
+|  027  |  B-  |                                   |
+|  028  |  B-  |                                   |
+|  029  |  B-  |                                   |
 
 ---
 
