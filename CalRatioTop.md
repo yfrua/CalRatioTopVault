@@ -56,6 +56,7 @@
 - defined analysis [Channels](notes/Channels.md).
 - DAOD used in the analysis: [DAOD](notes/DAOD.md)
 - description for training dataset: [Training Dataset](notes/Training%20Dataset.md)
+- training input variable distributions: [Training Variables (ttbar)](notes/Training%20Variables%20(ttbar).md)
 - performance plots dashboard for optimized models: [Optimized Models Plots](notes/Optimized%20Models%20Plots.md)
 
 # Resources 
