@@ -40,6 +40,8 @@
 	- ttbar training only consist of 2 best trials, indexed 0 and 2.
 		- trajectory pruning went wrong, fixed in [MR!32](https://gitlab.cern.ch/atlas-phys/exot/ueh/calratio_top/calratiognntrainer/-/merge_requests/32/commits).
 	- [x] retrain models with optimized parameters 
+	- this round of optimization has significantly worse performance than previous one.
+		- [ ] understand how hyperparameter search and prune is working 
 	- [ ] evaluate the optimized trials, see [Optimized Models Plots](notes/Optimized%20Models%20Plots.md).
 - [x] check NN consistency with TopCPToolkit
 	- signal and QCD test dataset
