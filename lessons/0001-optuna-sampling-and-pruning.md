@@ -33,7 +33,7 @@ Trial History (ranked by validation loss):
 
 Bergstra et al. showed that maximizing **Expected Improvement (EI)** over the loss threshold $y^*$ is mathematically proportional to the ratio of these two densities:
 
-$$\text{EI}_{y^*}(x) = \int_{-\infty}^{y^*} (y^* - y) P(y \mid x) \, dy \propto \frac{\ell(x)}{g(x)}$$
+$$\text{EI}_{y^*}(x) = \int_{-\infty}^{y^*} (y^* - y) P(y \mid x) \, dy \propto \left[ \gamma + (1 - \gamma) \frac{g(x)}{\ell(x)} \right]^{-1} $$
 
 $$x^* = \arg\max_{x} \frac{\ell(x)}{g(x)}$$
 
