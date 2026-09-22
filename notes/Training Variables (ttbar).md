@@ -2,7 +2,7 @@
 
 This note displays the kinematic and constituent distribution plots for the $t\bar{t}$ training dataset across Signal, $t\bar{t}$ Background, and BIB samples.
 
-[Training Dataset](Training%20Dataset.md) | [Optimized Models Plots](Optimized%20Models%20Plots.md) | [CalRatioTop](../CalRatioTop.md)
+[Training Dataset](Training%20Dataset.md) | [CalRatioTop](../CalRatioTop.md)
 
 ---
 

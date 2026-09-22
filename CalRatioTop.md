@@ -45,7 +45,7 @@
 			- how it works: [0001-optuna-sampling-and-pruning](lessons/0001-optuna-sampling-and-pruning.md).
 			- instead of "2D Normalized Distance", just use square sum of two val loss?
 			- [ ] enqueue trials from already found best trials.
-	- [ ] evaluate the optimized trials, see [Optimized Models Plots](notes/Optimized%20Models%20Plots.md).
+	- [ ] evaluate the optimized trials
 - [x] check NN consistency with TopCPToolkit
 	- signal and QCD test dataset
 		- Signal: `mc23_13p6TeV:DAOD_LLP1.47755565._000002.pool.root.1` from `mc23_13p6TeV:mc23_13p6TeV.562146.MGPy8EG_A14N23LO_ttbar_LL_ALP_fixed_ma5_ctau100.deriv.DAOD_LLP1.e8599_s4159_r15530_p7106`
@@ -62,7 +62,6 @@
 - DAOD used in the analysis: [DAOD](notes/DAOD.md)
 - description for training dataset: [Training Dataset](notes/Training%20Dataset.md)
 - training input variable distributions: [Training Variables (ttbar)](notes/Training%20Variables%20(ttbar).md)
-- performance plots dashboard for optimized models: [Optimized Models Plots](notes/Optimized%20Models%20Plots.md)
 
 # Resources 
 - CalRatio-Transformer-Trainer: [gitlab](https://gitlab.cern.ch/atlas-phys/exot/ueh/calratio_top/calratiognntrainer)
