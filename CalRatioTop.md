@@ -42,6 +42,8 @@
 	- [x] retrain models with optimized parameters 
 	- this round of optimization has significantly worse performance than previous one.
 		- [ ] understand how hyperparameter search and prune is working 
+			- how it works: [0001-optuna-sampling-and-pruning](lessons/0001-optuna-sampling-and-pruning.md).
+			- instead of "2D Normalized Distance", just use square sum of two val loss?
 	- [ ] evaluate the optimized trials, see [Optimized Models Plots](notes/Optimized%20Models%20Plots.md).
 - [x] check NN consistency with TopCPToolkit
 	- signal and QCD test dataset
