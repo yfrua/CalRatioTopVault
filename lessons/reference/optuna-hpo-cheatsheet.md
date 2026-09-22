@@ -12,30 +12,33 @@
 | **Study** | An optimization session managing objective direction(s) and trial history. | `optuna.create_study(directions=["minimize", "minimize"], ...)` |
 | **Trial** | A single execution evaluating a candidate parameter set. | Spawned inside `objective_two_vars(trial, ...)` |
 | **Storage** | Backend database persisting trial metrics and statuses. | SQLite with WAL mode (`sqlite:///hp_opt/optuna.db`) |
-| **Sampler** | Algorithm suggesting the next hyperparameter vector. | Default `TPESampler` (MOTPE for multi-objective) |
-| **Pruner** | Early-stopping rule for unpromising intermediate curves. | Custom `_CohortTrajectoryPruner` (2D normalized distance) |
+| **Sampler** | Algorithm suggesting the next hyperparameter vector. | Default `TPESampler` (MOTPE with Pareto/HSSP for multi-objective) |
+| **Pruner** | Early-stopping rule for unpromising intermediate curves. | Custom `_CohortTrajectoryPruner` (Euclidean distance, SF-aware) |
+| **Enqueue** | Warm-starting study with known Pareto configurations. | `--enqueue-trials [CONFIG]` via `study.enqueue_trial()` |
 
 ---
 
-## 2. TPE (Tree-structured Parzen Estimator) Algorithm
+## 2. TPE & Multi-Objective TPE (MOTPE) Algorithm
 
+### Single-Objective TPE
 TPE models $P(x \mid y)$ by partitioning past trials using a loss quantile threshold $\gamma \in (0, 1)$:
-
 - $\ell(x) = P(x \mid y < y^*)$ — Probability density over good hyperparameter configurations.
 - $g(x) = P(x \mid y \ge y^*)$ — Probability density over poor hyperparameter configurations.
-
-To sample the next configuration $x^*$, TPE maximizes the **Expected Improvement (EI)**:
 
 > [!math] Expected Improvement Derivation
 > $$\text{EI}_{y^*}(x) = \int_{-\infty}^{y^*} (y^* - y) P(y \mid x) \, dy \propto \left[ \gamma + (1 - \gamma) \frac{g(x)}{\ell(x)} \right]^{-1} \propto \frac{\ell(x)}{g(x)}$$
 >
-> **Decision Rule**:
-> $$x^* = \arg\max_{x} \frac{\ell(x)}{g(x)}$$
+> **Decision Rule**: $x^* = \arg\max_{x} \frac{\ell(x)}{g(x)}$
+
+### Multi-Objective TPE (MOTPE in 2D)
+Because 2D objective space $(\mathcal{L}_{\text{SR}}, \mathcal{L}_{\text{CR}})$ lacks a total ordering, there is no scalar threshold $y^*$. MOTPE partitions trials via:
+1. **Quota from Quantile**: $n_{\text{below}} = \min(\lceil 0.10 \times N \rceil, 25)$.
+2. **Non-Dominated Sorting**: Peels Pareto ranks (Rank 0, Rank 1, ...) to fill $n_{\text{below}}$.
+3. **HSSP Tie-Breaking**: Greedily maximizes dominated hypervolume against dynamic reference point $\vec{r} = 1.1 \times \text{worst}$ when a rank partially fits.
+4. **Hypervolume Weighting**: Weights trials in $\ell(x)$ by marginal hypervolume contribution $w_i \propto \Delta HV_i$. Sampling by $\frac{\ell(x)}{g(x)}$ maximizes **Expected Hypervolume Improvement (EHVI)**.
 
 ### Parzen Density Estimation Mechanics (Step 4)
-
-Optuna constructs $\ell(x)$ and $g(x)$ using trial history via five rules:
-1. **Kernel Placement**: Historical points $x^{(i)}$ serve as kernel means ($\mu_i = x^{(i)}$) in Gaussian mixtures.
+1. **Kernel Placement**: Historical points $x^{(i)}$ serve as Gaussian kernel means ($\mu_i = x^{(i)}$).
 2. **Adaptive Bandwidths**: $\sigma_i = \max(x_{(i)} - x_{(i-1)}, x_{(i+1)} - x_{(i)})$; narrow in dense clusters (exploitation), wide in sparse gaps (exploration).
 3. **Magic Clipping**: Clamps $\sigma_{\min} = \frac{\text{high} - \text{low}}{\min(100, M + 1)}$ to sharpen kernels as trial history $M$ grows.
 4. **Recency Weights**: For $M > 25$, the 25 newest trials keep weight $1.0$, while older trials linearly ramp down from $1/M$ to $1.0$.
@@ -50,20 +53,29 @@ Optuna constructs $\ell(x)$ and $g(x)$ using trial history via five rules:
 | **MedianPruner** | Metric at step $t$ is strictly worse than median of completed trials at step $t$. | **No** (Requires scalar value) |
 | **PercentilePruner** | Metric at step $t$ falls below the $p$-th percentile of historical trials. | **No** (Requires scalar value) |
 | **SuccessiveHalving (SHA)** | Promotes only top $1/\eta$ trials at geometric budget rungs (e.g. 1, 3, 9 epochs). | **No** (Scalar rank per rung) |
-| **CohortTrajectoryPruner** (`objective.py`) | Euclidean distance $\sqrt{\mathcal{L}_{\text{SR}}^2 + \mathcal{L}_{\text{CR}}^2}$ exceeds slack times median completed cohort distance. Identical to combined `val_loss` in `callbacks.py`. | **Yes** (Custom CalRatio engine) |
+| **CohortTrajectoryPruner** (`objective.py`) | Euclidean distance $\sqrt{\mathcal{L}_{\text{SR}}^2 + \mathcal{L}_{\text{CR}}^2}$ exceeds slack $\times$ median cohort distance. Warmup = $\max(\text{base\_warmup}, \text{sf\_pct\_end})$ ensures complementary training full scale factor engagement before pruning. | **Yes** (Custom CalRatio engine) |
 | **Combined Val Loss** (`callbacks.py`) | Raw Euclidean distance from origin $\sqrt{\mathcal{L}_{\text{SR}}^2 + \mathcal{L}_{\text{CR}}^2}$; logged as `val_loss` for PyTorch Lightning checkpointing. | **Yes** (Scalar aggregation) |
 
 ---
 
-## 4. SQLite WAL Mode for Multi-Worker Concurrency
+## 4. Multi-Worker Concurrency & Warm-Starting
 
 ```python
-# Required to prevent "database is locked" errors across parallel GPU trials
+# SQLite WAL mode avoids database lock contention across worker GPUs
 import sqlite3
 
 with sqlite3.connect("hp_opt/optuna.db") as conn:
     conn.execute("PRAGMA journal_mode=WAL;")
     conn.execute("PRAGMA synchronous=NORMAL;")
+```
+
+### CLI Options for Robust Runs
+```bash
+hp_opt \
+  --study-name calratio_ttbar_opt \
+  --enqueue-trials hp_opt/configs/enqueue_trials.yaml \
+  --prune-warmup 0.6 \
+  --prune-slack 1.5
 ```
 
 ---

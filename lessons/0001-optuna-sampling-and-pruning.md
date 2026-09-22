@@ -105,6 +105,56 @@ If a categorical choice yielded top validation losses in $H_\ell$, $\ell(c)$ ris
 
 ---
 
+### Multi-Objective TPE (MOTPE): How the 2D Pareto Boundary Replaces $y^*$
+
+In single-objective TPE, the scalar loss threshold $y^*$ is straightforwardly computed as a quantile (e.g. 10th percentile). However, in CalRatio's two-objective study, the objective is a 2D vector $\vec{y} = (\mathcal{L}_{\text{SR}}, \mathcal{L}_{\text{CR}})$. Because 2D space possesses **no total ordering** (one model may achieve lower SR loss while another achieves lower CR loss), **there is no single scalar threshold $y^*$**.
+
+Optuna resolves this via **Multi-Objective TPE (MOTPE)** (Ozaki et al., 2020/2022) using a four-step Pareto-hypervolume mechanism:
+
+```
+       SR Loss (y1)
+          ▲
+          │   (Rank 2)
+          │       •
+          │   (Rank 1)   • (Rank 2)
+          │       •
+          │   (Rank 0) • (Rank 1)
+          │       •
+          │         • (Rank 0)
+          │             • (Rank 0)
+          └─────────────────────────► CR Loss (y2)
+```
+
+#### 1. Quantile Governs the Target Count ($n_{\text{below}}$)
+The quantile function $\gamma(N)$ does not determine a cutoff loss value; instead, it determines **how many** trials should populate the "good" set $\ell(x)$:
+$$n_{\text{below}} = \text{default\_gamma}(N) = \min(\lceil 0.10 \times N \rceil, \, 25)$$
+For 100 trials, $n_{\text{below}} = 10$.
+
+#### 2. Non-Dominated Sorting (Pareto Ranking)
+To decide *which* trials constitute the top $n_{\text{below}}$ candidates, MOTPE computes non-domination ranks (NSGA-II):
+- **Rank 0**: The non-dominated Pareto front (no trial beats them simultaneously in both SR and CR loss).
+- **Rank 1**: The Pareto front computed after removing Rank 0.
+- **Rank 2, ...**: Successive non-dominated layers.
+
+Trials are added to the "below" set rank by rank until reaching $n_{\text{below}}$.
+
+#### 3. Hypervolume Subset Selection Problem (HSSP) for Partial Ranks
+When adding the next rank would exceed the quota $n_{\text{below}}$ (e.g. Rank 0 contains 6 trials, $n_{\text{below}} = 10$, but Rank 1 has 8 trials), Optuna solves the **Hypervolume Subset Selection Problem (HSSP)**:
+- Constructs a reference point based on the worst loss in that rank:
+  $$\vec{r} = 1.1 \times (\max \mathcal{L}_{\text{SR}}, \, \max \mathcal{L}_{\text{CR}})$$
+- Greedily selects the subset of size $k = n_{\text{below}} - |\text{selected}|$ that **maximizes the combined 2D dominated hypervolume**.
+- This ensures candidates that provide broad, well-dispersed trade-off coverage along the front are prioritized over tightly clustered duplicates.
+
+#### 4. Weighting $\ell(x)$ by Marginal Hypervolume Contribution
+Unlike single-objective TPE where all trials in $\ell(x)$ carry uniform kernel weights, MOTPE assigns each trial in $\ell(x)$ a weight proportional to its **marginal hypervolume contribution** ($\Delta HV_i$):
+$$w_i \propto HV(\mathcal{S}) - HV(\mathcal{S} \setminus \{i\})$$
+- Solutions pushing the frontier into unexplored, high-value trade-off regions receive weights approaching $1.0$.
+- Crowded or interior points receive small weights ($\approx \epsilon$).
+
+Maximizing $\frac{\ell(x)}{g(x)}$ under these hypervolume-weighted Parzen estimators mathematically corresponds to maximizing the **Expected Hypervolume Improvement (EHVI)**.
+
+---
+
 ## 3. How Pruning Algorithms Work
 
 Pruning terminates unpromising trials before they consume their full epoch budget.
@@ -131,9 +181,13 @@ $$D = \sqrt{\mathcal{L}_{\text{SR}}^2 + \mathcal{L}_{\text{CR}}^2}$$
 - **Eliminating Cohort Dependence**: Unlike min-max normalization, which shifts dynamically based on the cohort's historical extremes and can distort thresholds when outlier trials occur, the raw Euclidean distance evaluates each trial purely against completed cohort performance on the identical metric.
 - **Strict Checkpoint Fidelity**: Because $D = \text{val\_loss}$ identically, the epoch selected by Optuna as the best trial epoch is guaranteed to be the exact epoch checkpoint saved by PyTorch Lightning.
 
-#### Pruning Execution Rules
-1. **Warmup Budget**: Requires at least 5 completed trials and 30% of the epoch budget before early stopping activates.
-2. **Threshold Termination**: Kills the training subprocess if the running best trajectory distance exceeds `slack_factor × cohort_median_distance`.
+#### Pruning Execution Rules (Patient & Scale-Factor Aware)
+1. **Minimum Cohort Size**: Requires at least 5 completed trials before any pruning decisions are evaluated.
+2. **Patient Warmup Fraction (Default 60%)**: Base warmup is set to 60% of `max_epochs` (configured via `--prune-warmup`, defaulting to `0.6`).
+3. **Dynamic SF Schedule Awareness**:
+   $$\text{effective\_warmup} = \max(\text{base\_warmup}, \, \text{sf\_pct\_end})$$
+   In complementary training, the adversarial scale factor (SF) ramps up until `sf_pct_end`. If a trial is pruned during early epochs before the scale factor reaches full magnitude, models are killed before learning to balance SR classification with CR domain invariance. By anchoring warmup to `sf_pct_end`, the pruner ensures the model has fully experienced the complementary loss before pruning.
+4. **Slack-Gated Termination**: Kills the training subprocess if the running best trajectory distance exceeds `slack_factor × cohort_median_distance` (configured via `--prune-slack`, default `1.5`).
 
 ---
 
@@ -171,10 +225,26 @@ Why can't Optuna's built-in `MedianPruner` be used directly in your CalRatio two
 
 ---
 
+### Question 3
+In multi-objective TPE (MOTPE), how is the "good" history partition $\ell(x)$ selected when evaluating 2D objective vectors $(\mathcal{L}_{\text{SR}}, \mathcal{L}_{\text{CR}})$?
+
+- **A**: By non-dominated Pareto ranking, resolving quota ties via Hypervolume Subset Selection (HSSP) and weighting points by marginal hypervolume contribution.
+- **B**: By computing Euclidean distances to the origin and sorting trials along a 1D line to find a scalar quantile.
+- **C**: By alternating between optimizing Signal Region loss on even trials and Control Region loss on odd trials.
+- **D**: By fitting a Gaussian Process surrogate to perform Principal Component Analysis on the 2D objective space.
+
+> [!check]- Reveal Answer & Explanation
+> **Correct Answer**: **A**
+> 
+> **Explanation**: Because 2D objective space has no total ordering, MOTPE uses the quantile $\gamma$ to define the target count $n_{\text{below}}$, uses non-dominated sorting (Pareto ranks) to select candidate layers, breaks boundary ties via HSSP to maximize dominated hypervolume, and weights trials in $\ell(x)$ by their marginal hypervolume contribution $\Delta HV_i$.
+
+---
+
 ## 5. Primary Source Reading
 
-Read Section 3 ("Tree-structured Parzen Estimator Approach") of:
 - [**Algorithms for Hyper-Parameter Optimization** (Bergstra et al., NeurIPS 2011)](https://proceedings.neurips.cc/paper_files/paper/2011/hash/86e8f7ab32cfd12577bc2619bc635690-Abstract.html) ([Direct PDF](https://proceedings.neurips.cc/paper_files/paper/2011/file/86e8f7ab32cfd12577bc2619bc635690-Paper.pdf)).
+- [**Multiobjective Tree-Structured Parzen Estimator for Computationally Expensive Optimization Problems** (Ozaki et al., GECCO 2020)](https://doi.org/10.1145/3377930.3389817).
+- [**Multiobjective Tree-Structured Parzen Estimator** (Ozaki et al., JAIR 2022)](https://doi.org/10.1613/jair.1.13188).
 
 ---
 

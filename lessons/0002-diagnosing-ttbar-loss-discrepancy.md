@@ -111,30 +111,27 @@ $$D = \sqrt{\mathcal{L}_{\text{SR}}^2 + \mathcal{L}_{\text{CR}}^2}$$
 - Eliminates cohort dependency, division-by-zero vulnerability, and outlier distortion.
 - Re-establishes exact 1:1 alignment between Optuna's trial scoring and PyTorch Lightning's checkpoint saving (`val_loss`).
 
-### 2. Warm-Starting Optuna with Known Good Configurations
-Rather than forcing Optuna to explore blindly from scratch, seed the study with the proven hyperparameters from the previous successful round:
-```python
-# Seed the study with the previous best configuration
-study.enqueue_trial({
-    "lr_init": 6.988e-05,
-    "lr_max": 4.799e-04,
-    "lr_end": 7.824e-05,
-    "lr_pct_start": 0.1629,
-    "weight_decay": 0.00305,
-    "sf_max": 1.453,
-    "sf_pct_start": 0.079,
-    "sf_pct_end": 0.210,
-    "embed_dim": 128,
-    "num_layers": 3,
-    "num_heads": 1,
-    "out_dim": 256,
-    "dropout": 0.0632,
-    "max_epochs": 20,
-})
-```
-This guarantees that the good loss basin ($\text{SR} \approx 0.24$) immediately enters $H_\ell$ to anchor TPE's $\ell(x)$ density from the very first trials.
+### 2. Automated Trial Enqueueing from Known Best Checkpoints
+Rather than forcing Optuna to explore blindly from scratch, the study can be warm-started with proven hyperparameters extracted from previous successful rounds:
+- **Pre-compiled Candidates**: [`hp_opt/configs/enqueue_trials.yaml`](file:///home/fye/CalRatio/calratiognntrainer_hp_opt_ttbar/hp_opt/configs/enqueue_trials.yaml) consolidates 16 unique high-performing configurations extracted from [`calratio_transformer/configs/calRatio.yaml`](file:///home/fye/CalRatio/calratiognntrainer_hp_opt_ttbar/calratio_transformer/configs/calRatio.yaml) and historical Pareto front YAML dumps (`hp_opt/best_params_*.yaml`).
+- **CLI Enqueueing**: Pass the `--enqueue-trials` flag to `hp_opt`:
+  ```bash
+  hp_opt --study-name calratio_ttbar_opt --enqueue-trials
+  # or pass a custom config:
+  hp_opt --enqueue-trials hp_opt/configs/enqueue_trials.yaml
+  ```
+- **Optuna Mechanics**: Under the hood, [`hp_opt/enqueue.py`](file:///home/fye/CalRatio/calratiognntrainer_hp_opt_ttbar/hp_opt/enqueue.py) calls `study.enqueue_trial(params)`. When workers request parameter suggestions, Optuna dequeues these vetted parameter vectors first. Their completion guarantees that the good loss manifold ($\text{SR} \approx 0.24$) immediately enters the non-dominated Pareto front, anchoring TPE's "good" density $\ell(x)$ from the earliest search steps.
 
-### 3. Tightening the Search Space
+### 3. Scale-Factor-Aware & Patient Trajectory Pruning
+In complementary training, the adversarial scale factor (SF) follows a cosine or linear ramp reaching peak value at `sf_pct_end` (frequently in later training epochs, e.g. 50-70% through the run). 
+- **The Pitfall of Aggressive Early Pruning**: Pruning early in training (e.g. at 30% of epochs) evaluates models before the adversarial domain discriminator loss is fully active. A trial might appear promising or unpromising purely because it has not yet felt the full impact of the CR adversarial penalty.
+- **The Fix**:
+  - Increased default base warmup from 30% to 60% of `max_epochs` (`--prune-warmup 0.6`).
+  - Implemented dynamic schedule coupling in [`_CohortTrajectoryPruner`](file:///home/fye/CalRatio/calratiognntrainer_hp_opt_ttbar/hp_opt/objective.py#L201-L285):
+    $$\text{effective\_warmup} = \max(\text{base\_warmup}, \, \text{sf\_pct\_end})$$
+  - Pruner slack factor set to 1.5 (`--prune-slack 1.5`), ensuring that models are given adequate runway to stabilize after complementary scaling reaches full magnitude.
+
+### 4. Tightening the Search Space
 Narrow parameter ranges around the known good basin (e.g., constraining `num_heads \in [1, 2]`, `embed_dim = 128`, `num_layers \in [2, 4]`, and fixing `max_epochs = 20` or `30`) to concentrate sampling power where high performance has already been demonstrated.
 
 ---
@@ -176,12 +173,17 @@ How does replacing normalized cohort distance with raw square sum distance impro
 ## 5. Primary Source & Code References
 
 - [`calratio_transformer/callbacks.py`](file:///home/fye/CalRatio/calratiognntrainer_hp_opt_ttbar/calratio_transformer/callbacks.py#L21-L40): Implementation of `ComplementPerformanceWriter` computing combined validation loss.
-- [`hp_opt/objective.py`](file:///home/fye/CalRatio/calratiognntrainer_hp_opt_ttbar/hp_opt/objective.py#L86-L128): Implementation of square sum distance and cohort trajectory pruning.
+- [`hp_opt/objective.py`](file:///home/fye/CalRatio/calratiognntrainer_hp_opt_ttbar/hp_opt/objective.py#L86-L128): Implementation of Euclidean distance and SF-aware cohort trajectory pruning.
+- [`hp_opt/enqueue.py`](file:///home/fye/CalRatio/calratiognntrainer_hp_opt_ttbar/hp_opt/enqueue.py): Trial extraction and enqueueing engine for model configs and Pareto YAML outputs.
+- [`hp_opt/configs/enqueue_trials.yaml`](file:///home/fye/CalRatio/calratiognntrainer_hp_opt_ttbar/hp_opt/configs/enqueue_trials.yaml): Pre-compiled 16 candidate configurations for warm-starting.
 - [`calratio_transformer/configs/calRatio.yaml`](file:///home/fye/CalRatio/calratiognntrainer_hp_opt_ttbar/calratio_transformer/configs/calRatio.yaml): Previous round's optimal hyperparameters yielding $\text{SR} = 0.244$.
 
 ---
 
 ## Next Steps & Follow-up
 
-- In your next HPO launch, enqueue the known good trial parameters using `study.enqueue_trial(...)` to immediately anchor the TPE good density $\ell(x)$.
-- Keep the square sum distance metric active to maintain strict fidelity between trial evaluation and model checkpointing.
+- In your next HPO launch, pass `--enqueue-trials` to immediately anchor the TPE good density $\ell(x)$ with proven configurations:
+  ```bash
+  hp_opt --study-name calratio_ttbar_opt --enqueue-trials --prune-warmup 0.6 --prune-slack 1.5
+  ```
+- Keep the Euclidean distance metric active to maintain strict fidelity between trial evaluation and model checkpointing.
