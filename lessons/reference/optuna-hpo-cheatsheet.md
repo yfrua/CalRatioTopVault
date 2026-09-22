@@ -32,6 +32,15 @@ To sample the next configuration $x^*$, TPE maximizes the **Expected Improvement
 > **Decision Rule**:
 > $$x^* = \arg\max_{x} \frac{\ell(x)}{g(x)}$$
 
+### Parzen Density Estimation Mechanics (Step 4)
+
+Optuna constructs $\ell(x)$ and $g(x)$ using trial history via five rules:
+1. **Kernel Placement**: Historical points $x^{(i)}$ serve as kernel means ($\mu_i = x^{(i)}$) in Gaussian mixtures.
+2. **Adaptive Bandwidths**: $\sigma_i = \max(x_{(i)} - x_{(i-1)}, x_{(i+1)} - x_{(i)})$; narrow in dense clusters (exploitation), wide in sparse gaps (exploration).
+3. **Magic Clipping**: Clamps $\sigma_{\min} = \frac{\text{high} - \text{low}}{\min(100, M + 1)}$ to sharpen kernels as trial history $M$ grows.
+4. **Recency Weights**: For $M > 25$, the 25 newest trials keep weight $1.0$, while older trials linearly ramp down from $1/M$ to $1.0$.
+5. **Prior Regularization**: Appends a domain-wide prior ($\mu = \text{mid}, \sigma = \text{range}, w = 1.0$) that prevents zero-probability starvation and decays as $\frac{1}{M+1}$.
+
 ---
 
 ## 3. Pruning Algorithms Overview

@@ -1,3 +1,0 @@
-# Optuna TPE Sampling and Multi-Objective Cohort Pruning Established
-
-Established the conceptual and algorithmic foundation of Optuna's Tree-structured Parzen Estimator (TPE), specifically how it partitions trial histories into good ($\ell(x)$) and poor ($g(x)$) non-parametric densities to maximize Expected Improvement via $\ell(x)/g(x)$. Confirmed that standard Optuna pruners cannot operate on multi-objective Pareto metrics, establishing why this repository uses a custom 2D normalized Euclidean trajectory pruner (`_CohortTrajectoryPruner`). This forms the baseline for analyzing loss landscape regressions and Pareto front trade-offs in subsequent lessons.

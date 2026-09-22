@@ -56,15 +56,52 @@ $$x^* = \arg\max_{x} \frac{\ell(x)}{g(x)}$$
 
 The practical sampling procedure implemented in Optuna (`optuna.samplers.TPESampler`) executes the following sequential steps:
 
-|           Step            | Operation                                    | Description                                                                                                                                                                                                                                                                                                |
-| :-----------------------: | :------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|   **1. Startup Check**    | $N < N_{\text{startup}}$                     | If the number of completed trials is below the threshold (default $N_{\text{startup}} = 10$), sample $x$ uniformly at random from the search space to seed initial data.                                                                                                                                   |
-| **2. Loss Thresholding**  | $y^* = \text{Quantile}(\{y^{(i)}\}, \gamma)$ | Rank completed trials by objective loss $y$ in ascending order. Determine $y^*$ such that $P(y < y^*) = \gamma$ (typically $\gamma = 0.15$).                                                                                                                                                               |
-|   **3. History Split**    | Partition into $H_{\ell}$ & $H_g$            | Split trial parameter vectors into two sets: <br>• $H_{\ell} = \{x^{(i)} \mid y^{(i)} < y^*\}$ (the top performers) <br>• $H_g = \{x^{(i)} \mid y^{(i)} \ge y^*\}$ (the remaining trials)                                                                                                                  |
-| **4. Density Estimation** | Fit $\ell(x)$ & $g(x)$                       | Construct Parzen Estimators (Kernel Density Estimation - KDE) for each hyperparameter: <br>• **Continuous (linear/log)**: Parzen mixture of Gaussians with adaptive bandwidth centered at observations. <br>• **Categorical/Discrete**: Categorical distributions smoothed with a Laplace/Dirichlet prior. |
-| **5. Candidate Drawing**  | Sample candidates from $\ell(x)$             | Draw a pool of $K$ candidate parameter configurations $\{x^{(1)}_{\text{cand}}, \dots, x^{(K)}_{\text{cand}}\}$ exclusively from the good density $\ell(x)$ (Optuna sets $K = 24$ by default).                                                                                                             |
-|  **6. Ratio Evaluation**  | Compute $\frac{\ell(x)}{g(x)}$               | For each candidate $x^{(k)}_{\text{cand}}$, evaluate the probability density under both models and compute the ratio $\frac{\ell(x^{(k)}_{\text{cand}})}{g(x^{(k)}_{\text{cand}})}$.                                                                                                                       |
-|   **7. Best Selection**   | Return $x^*$                                 | Select the candidate that maximizes the ratio: $x^* = \arg\max_{k} \frac{\ell(x^{(k)}_{\text{cand}})}{g(x^{(k)}_{\text{cand}})}$ and launch the new trial.                                                                                                                                                 |
+| Step | Operation | Description |
+| :---: | :--- | :--- |
+| **1. Startup Check** | $N < N_{\text{startup}}$ | If the number of completed trials is below the threshold (default $N_{\text{startup}} = 10$), sample $x$ uniformly at random from the search space to seed initial data. |
+| **2. Loss Thresholding** | $y^* = \text{Quantile}(\{y^{(i)}\}, \gamma)$ | Rank completed trials by objective loss $y$ in ascending order. Determine $y^*$ such that $P(y < y^*) = \gamma$ (typically $\gamma = 0.15$). |
+| **3. History Split** | Partition into $H_{\ell}$ & $H_g$ | Split trial parameter vectors into two sets: <br>• $H_{\ell} = \{x^{(i)} \mid y^{(i)} < y^*\}$ (the top performers) <br>• $H_g = \{x^{(i)} \mid y^{(i)} \ge y^*\}$ (the remaining trials) |
+| **4. Density Estimation** | Fit $\ell(x)$ & $g(x)$ | Construct Parzen Estimators (Kernel Density Estimation - KDE) for each hyperparameter: <br>• **Continuous (linear/log)**: Parzen mixture of Gaussians with adaptive bandwidth centered at observations. <br>• **Categorical/Discrete**: Categorical distributions smoothed with a Laplace/Dirichlet prior. |
+| **5. Candidate Drawing** | Sample candidates from $\ell(x)$ | Draw a pool of $K$ candidate parameter configurations $\{x^{(1)}_{\text{cand}}, \dots, x^{(K)}_{\text{cand}}\}$ exclusively from the good density $\ell(x)$ (Optuna sets $K = 24$ by default). |
+| **6. Ratio Evaluation** | Compute $\frac{\ell(x)}{g(x)}$ | For each candidate $x^{(k)}_{\text{cand}}$, evaluate the probability density under both models and compute the ratio $\frac{\ell(x^{(k)}_{\text{cand}})}{g(x^{(k)}_{\text{cand}})}$. |
+| **7. Best Selection** | Return $x^*$ | Select the candidate that maximizes the ratio: $x^* = \arg\max_{k} \frac{\ell(x^{(k)}_{\text{cand}})}{g(x^{(k)}_{\text{cand}})}$ and launch the new trial. |
+
+---
+
+### Deep Dive: How Step 4 (Density Estimation) Leverages Trial History
+
+Kernel Density Estimation in TPE does not treat past trials as static rows in a database. It converts the trial history into continuous probability distributions $\ell(x)$ and $g(x)$ through five mathematical and algorithmic mechanisms:
+
+#### 1. Kernel Placement at Historical Observations ($\mu_i = x^{(i)}$)
+Every historical trial parameter $x^{(i)}$ in partition $H_\ell$ or $H_g$ serves directly as the mean ($\mu_i$) of a probability kernel. For continuous variables (in linear or log space), this forms a Gaussian mixture:
+$$P(x \mid H) = \sum_{i=1}^{M} w_i \, \mathcal{N}(x \mid \mu_i = x^{(i)}, \sigma_i^2)$$
+This anchors density mass directly on parameter values that were actually evaluated in past runs.
+
+#### 2. Adaptive Bandwidth ($\sigma_i$) via Nearest-Neighbor Spacing
+Rather than applying a fixed bandwidth across the entire search space, TPE calculates the kernel standard deviation $\sigma_i$ adaptively based on how tightly historical points cluster.
+1. Historical observations along each dimension are sorted: $\{x_{(1)}, x_{(2)}, \dots, x_{(M)}\}$.
+2. For each interior observation $x_{(i)}$, $\sigma_i$ is set to the maximum distance to its immediate left and right neighbors:
+   $$\sigma_i = \max\left( x_{(i)} - x_{(i-1)}, \, x_{(i+1)} - x_{(i)} \right)$$
+- **High-Density History (Exploitation)**: In regions where multiple historical trials evaluated nearby values, the neighbor distance shrinks $\implies \sigma_i$ becomes small. The estimator resolves sharp, localized peaks.
+- **Low-Density History (Exploration)**: In sparse regions with few historical points, the neighbor distance expands $\implies \sigma_i$ becomes broad, smoothing probability over unexplored gaps.
+- **Magic Clipping**: Optuna clamps $\sigma_i$ to a minimum $\sigma_{\min} = \frac{\text{high} - \text{low}}{\min(100, M + 1)}$. As trial count $M$ grows, $\sigma_{\min}$ progressively shrinks, allowing the model to fit narrower, more precise peaks as data accumulates.
+
+#### 3. Temporal Recency Weighting (`default_weights`)
+Older trials do not retain equal voting power indefinitely:
+- When history size $M \le 25$, all historical trials carry uniform weight $w_i = 1.0$.
+- When history size $M > 25$, Optuna applies a linear ramp to past trials:
+  $$\mathbf{w} = \left[ \text{linspace}\left(\frac{1}{M}, 1.0, M - 25\right), \, \underbrace{1.0, 1.0, \dots, 1.0}_{25 \text{ most recent trials}} \right]$$
+The 25 most recent trials receive full weight ($1.0$), while older trials linearly ramp down toward $1/M$. This allows the density model to adapt to the optimizer's evolving focus without discarding historical failures or successes.
+
+#### 4. Regularization via a Global Exploration Prior
+If density estimation relied strictly on historical trials, unvisited search regions would evaluate to zero probability ($\ell(x) = 0$). To preserve exploratory drive across unvisited parameter space, Optuna appends a wide prior pseudo-observation:
+$$\mu_{\text{prior}} = \frac{\text{low} + \text{high}}{2}, \quad \sigma_{\text{prior}} = \text{high} - \text{low}, \quad \text{prior\_weight} = 1.0$$
+When trial history $M$ is small, this prior distribution exerts strong influence. As $M$ grows, the relative prior weight decays as $\frac{1}{M + 1}$, smoothly shifting the density from prior-guided exploration to data-driven exploitation.
+
+#### 5. Categorical Dirichlet/Laplace Smoothing
+For discrete or categorical hyperparameters with $C$ choices, historical trials increment the frequency bin of the selected category. A Laplace smoothing term proportional to the prior weight ensures unselected choices retain non-zero probability:
+$$P(x = c) = \frac{\sum_{i=1}^{M} w_i \cdot \mathbb{I}(x^{(i)} = c) + \frac{\text{prior\_weight}}{C}}{\sum_{i=1}^{M} w_i + \text{prior\_weight}}$$
+If a categorical choice yielded top validation losses in $H_\ell$, $\ell(c)$ rises. If it produced poor results in $H_g$, $g(c)$ increases, driving down the selection ratio $\frac{\ell(c)}{g(c)}$.
 
 ---
 
