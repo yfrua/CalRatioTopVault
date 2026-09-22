@@ -2,7 +2,7 @@
 
 > **Prerequisites**: [Lesson 0001: How Optuna Samples Hyperparameters & Prunes Trials](./0001-optuna-sampling-and-pruning.md).  
 > **Mission Alignment**: Diagnosing why current HPO rounds settle at ~0.51 SR loss while earlier dijet runs reached ~0.20.  
-> **Reference Guide**: [Optuna Architecture & HPO Cheat Sheet](./reference/optuna-hpo-cheatsheet.html)
+> **Reference Guide**: [Optuna Architecture & HPO Cheat Sheet](./reference/optuna-hpo-cheatsheet.md)
 
 ---
 
@@ -83,13 +83,10 @@ Why does replacing QCD dijet background with ttbar elevate the cross-entropy val
 - **C**: Denser hadronic energy depositions force layer normalization modules to saturate their internal activation boundaries.
 - **D**: Modifying background cross sections introduces severe numerical instability during distributed multi-GPU backpropagation passes.
 
-<details>
-<summary>Reveal Answer & Explanation</summary>
-
-**Correct Answer**: **A**
-
-**Explanation**: $b$-hadrons have measurable lifetimes ($c\tau \approx 450\,\mu\text{m}$), producing displaced secondary vertices and non-zero impact parameters that physically overlap with displaced LLP signal signatures. This elevates the Bayes error rate and conditional entropy floor $H(Y \mid X)$ of cross-entropy loss.
-</details>
+> [!check]- Reveal Answer & Explanation
+> **Correct Answer**: **A**
+> 
+> **Explanation**: $b$-hadrons have measurable lifetimes ($c\tau \approx 450\,\mu\text{m}$), producing displaced secondary vertices and non-zero impact parameters that physically overlap with displaced LLP signal signatures. This elevates the Bayes error rate and conditional entropy floor $H(Y \mid X)$ of cross-entropy loss.
 
 ---
 
