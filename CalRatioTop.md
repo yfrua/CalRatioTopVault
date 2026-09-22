@@ -44,7 +44,7 @@
 		- [ ] understand how hyperparameter search and prune is working 
 			- how it works: [0001-optuna-sampling-and-pruning](lessons/0001-optuna-sampling-and-pruning.md).
 			- instead of "2D Normalized Distance", just use square sum of two val loss?
-			- [ ] enqueue trials from already found best trials.
+			- [x] enqueue trials from already found best trials.
 	- [ ] evaluate the optimized trials
 - [x] check NN consistency with TopCPToolkit
 	- signal and QCD test dataset
