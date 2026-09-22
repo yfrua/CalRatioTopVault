@@ -13,7 +13,7 @@ The continuous expectation of how much a candidate configuration will improve ov
 _Avoid_: Loss delta, simple improvement score
 
 **Cohort Trajectory Pruning**:
-An early-stopping procedure that terminates unpromising trials by tracking multi-objective Euclidean distance trajectories in normalized validation-loss space against completed cohort percentiles after a warmup budget.  
+An early-stopping procedure that terminates unpromising trials by tracking multi-objective Euclidean distance trajectories $\sqrt{\mathcal{L}_{\text{SR}}^2 + \mathcal{L}_{\text{CR}}^2}$ against completed cohort medians after a warmup budget.  
 _Avoid_: Epoch killing, loss dropping
 
 **Pareto Frontier (Non-Dominated Set)**:

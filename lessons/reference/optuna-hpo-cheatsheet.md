@@ -50,7 +50,8 @@ Optuna constructs $\ell(x)$ and $g(x)$ using trial history via five rules:
 | **MedianPruner** | Metric at step $t$ is strictly worse than median of completed trials at step $t$. | **No** (Requires scalar value) |
 | **PercentilePruner** | Metric at step $t$ falls below the $p$-th percentile of historical trials. | **No** (Requires scalar value) |
 | **SuccessiveHalving (SHA)** | Promotes only top $1/\eta$ trials at geometric budget rungs (e.g. 1, 3, 9 epochs). | **No** (Scalar rank per rung) |
-| **CohortTrajectoryPruner** | Normalized 2D Euclidean distance to origin $( \Delta \text{SR}^2 + \Delta \text{CR}^2 )$ exceeds slack times median cohort distance. | **Yes** (Custom CalRatio engine) |
+| **CohortTrajectoryPruner** (`objective.py`) | Euclidean distance $\sqrt{\mathcal{L}_{\text{SR}}^2 + \mathcal{L}_{\text{CR}}^2}$ exceeds slack times median completed cohort distance. Identical to combined `val_loss` in `callbacks.py`. | **Yes** (Custom CalRatio engine) |
+| **Combined Val Loss** (`callbacks.py`) | Raw Euclidean distance from origin $\sqrt{\mathcal{L}_{\text{SR}}^2 + \mathcal{L}_{\text{CR}}^2}$; logged as `val_loss` for PyTorch Lightning checkpointing. | **Yes** (Scalar aggregation) |
 
 ---
 

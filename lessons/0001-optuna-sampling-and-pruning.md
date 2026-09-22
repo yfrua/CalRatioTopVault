@@ -56,15 +56,15 @@ $$x^* = \arg\max_{x} \frac{\ell(x)}{g(x)}$$
 
 The practical sampling procedure implemented in Optuna (`optuna.samplers.TPESampler`) executes the following sequential steps:
 
-|           Step            | Operation                                    | Description                                                                                                                                                                                                                                                                                                |
-| :-----------------------: | :------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|   **1. Startup Check**    | $N < N_{\text{startup}}$                     | If the number of completed trials is below the threshold (default $N_{\text{startup}} = 10$), sample $x$ uniformly at random from the search space to seed initial data.                                                                                                                                   |
-| **2. Loss Thresholding**  | $y^* = \text{Quantile}(\{y^{(i)}\}, \gamma)$ | Rank completed trials by objective loss $y$ in ascending order. Determine $y^*$ such that $P(y < y^*) = \gamma$ (typically $\gamma = 0.15$).                                                                                                                                                               |
-|   **3. History Split**    | Partition into $H_{\ell}$ & $H_g$            | Split trial parameter vectors into two sets: <br>• $H_{\ell} = \{x^{(i)} \mid y^{(i)} < y^*\}$ (the top performers) <br>• $H_g = \{x^{(i)} \mid y^{(i)} \ge y^*\}$ (the remaining trials)                                                                                                                  |
-| **4. Density Estimation** | Fit $\ell(x)$ & $g(x)$                       | Construct Parzen Estimators (Kernel Density Estimation - KDE) for each hyperparameter: <br>• **Continuous (linear/log)**: Parzen mixture of Gaussians with adaptive bandwidth centered at observations. <br>• **Categorical/Discrete**: Categorical distributions smoothed with a Laplace/Dirichlet prior. |
-| **5. Candidate Drawing**  | Sample candidates from $\ell(x)$             | Draw a pool of $K$ candidate parameter configurations $\{x^{(1)}_{\text{cand}}, \dots, x^{(K)}_{\text{cand}}\}$ exclusively from the good density $\ell(x)$ (Optuna sets $K = 24$ by default).                                                                                                             |
-|  **6. Ratio Evaluation**  | Compute $\frac{\ell(x)}{g(x)}$               | For each candidate $x^{(k)}_{\text{cand}}$, evaluate the probability density under both models and compute the ratio $\frac{\ell(x^{(k)}_{\text{cand}})}{g(x^{(k)}_{\text{cand}})}$.                                                                                                                       |
-|   **7. Best Selection**   | Return $x^*$                                 | Select the candidate that maximizes the ratio: $x^* = \arg\max_{k} \frac{\ell(x^{(k)}_{\text{cand}})}{g(x^{(k)}_{\text{cand}})}$ and launch the new trial.                                                                                                                                                 |
+| Step | Operation | Description |
+| :---: | :--- | :--- |
+| **1. Startup Check** | $N < N_{\text{startup}}$ | If the number of completed trials is below the threshold (default $N_{\text{startup}} = 10$), sample $x$ uniformly at random from the search space to seed initial data. |
+| **2. Loss Thresholding** | $y^* = \text{Quantile}(\{y^{(i)}\}, \gamma)$ | Rank completed trials by objective loss $y$ in ascending order. Determine $y^*$ such that $P(y < y^*) = \gamma$ (typically $\gamma = 0.15$). |
+| **3. History Split** | Partition into $H_{\ell}$ & $H_g$ | Split trial parameter vectors into two sets: <br>• $H_{\ell} = \{x^{(i)} \mid y^{(i)} < y^*\}$ (the top performers) <br>• $H_g = \{x^{(i)} \mid y^{(i)} \ge y^*\}$ (the remaining trials) |
+| **4. Density Estimation** | Fit $\ell(x)$ & $g(x)$ | Construct Parzen Estimators (Kernel Density Estimation - KDE) for each hyperparameter: <br>• **Continuous (linear/log)**: Parzen mixture of Gaussians with adaptive bandwidth centered at observations. <br>• **Categorical/Discrete**: Categorical distributions smoothed with a Laplace/Dirichlet prior. |
+| **5. Candidate Drawing** | Sample candidates from $\ell(x)$ | Draw a pool of $K$ candidate parameter configurations $\{x^{(1)}_{\text{cand}}, \dots, x^{(K)}_{\text{cand}}\}$ exclusively from the good density $\ell(x)$ (Optuna sets $K = 24$ by default). |
+| **6. Ratio Evaluation** | Compute $\frac{\ell(x)}{g(x)}$ | For each candidate $x^{(k)}_{\text{cand}}$, evaluate the probability density under both models and compute the ratio $\frac{\ell(x^{(k)}_{\text{cand}})}{g(x^{(k)}_{\text{cand}})}$. |
+| **7. Best Selection** | Return $x^*$ | Select the candidate that maximizes the ratio: $x^* = \arg\max_{k} \frac{\ell(x^{(k)}_{\text{cand}})}{g(x^{(k)}_{\text{cand}})}$ and launch the new trial. |
 
 ---
 
@@ -117,11 +117,23 @@ In standard Optuna, the training loop reports intermediate metrics at each step 
 ### The Multi-Objective Challenge in CalRatio
 > **Key Insight**: Stock Optuna pruners cannot prune multi-objective studies (Signal Region loss vs. Control Region loss). Because trials form a non-dominated Pareto front, there is no single scalar order for intermediate scores.
 
-To solve this, this repository implements a custom cohort trajectory pruner (`_CohortTrajectoryPruner` in [`hp_opt/objective.py`](file:///home/fye/CalRatio/calratiognntrainer_hp_opt_ttbar/hp_opt/objective.py#L201-L295)):
-1. **2D Normalized Distance**: Tracks Euclidean distance in normalized $(\text{SR}, \text{CR})$ loss space:
-   $$D = \left(\frac{\text{SR} - \min(\text{SR})}{\max(\text{SR}) - \min(\text{SR})}\right)^2 + \left(\frac{\text{CR} - \min(\text{CR})}{\max(\text{CR}) - \min(\text{CR})}\right)^2$$
-2. **Warmup Budget**: Requires at least 5 completed trials and 30% of the epoch budget before pruning activates.
-3. **Threshold Termination**: Kills the training subprocess if the running best distance exceeds `slack_factor × cohort_median_distance`.
+To evaluate multi-objective trajectories, two closely related distance formulations appear in the CalRatio codebase:
+
+#### 1. The Callbacks Formulation: Raw Square Sum ($\mathcal{L}_{\text{SR}}^2 + \mathcal{L}_{\text{CR}}^2$)
+In [`calratio_transformer/callbacks.py`](file:///home/fye/CalRatio/calratiognntrainer_hp_opt_ttbar/calratio_transformer/callbacks.py#L21-L40), [`ComplementPerformanceWriter`](file:///home/fye/CalRatio/calratiognntrainer_hp_opt_ttbar/calratio_transformer/callbacks.py#L18-L40) aggregates multi-dataloader validation losses into a combined scalar metric logged as `val_loss`:
+$$\text{val\_loss} = \sqrt{\mathcal{L}_{\text{SR}}^2 + \mathcal{L}_{\text{CR}}^2} \iff \text{val\_loss}^2 = \mathcal{L}_{\text{SR}}^2 + \mathcal{L}_{\text{CR}}^2$$
+- **Checkpoint Alignment**: PyTorch Lightning's checkpointing callback (`salt.callbacks.Checkpoint`) monitors this combined `val_loss` directly. The `.ckpt` saved on disk is always chosen by this Euclidean distance from the origin.
+- **Robustness**: It requires no historical min/max bounds, cannot suffer from division-by-zero, and is immune to distortion from cohort outlier trials.
+
+#### 2. The Unified Trajectory Distance Metric: Euclidean Distance
+In [`hp_opt/objective.py`](file:///home/fye/CalRatio/calratiognntrainer_hp_opt_ttbar/hp_opt/objective.py#L86-L115), [`_CohortTrajectoryPruner`](file:///home/fye/CalRatio/calratiognntrainer_hp_opt_ttbar/hp_opt/objective.py#L201-L285) has been unified with `callbacks.py` to use the Euclidean distance (taking the square root of the square sum) without cohort min/max normalization:
+$$D = \sqrt{\mathcal{L}_{\text{SR}}^2 + \mathcal{L}_{\text{CR}}^2}$$
+- **Eliminating Cohort Dependence**: Unlike min-max normalization, which shifts dynamically based on the cohort's historical extremes and can distort thresholds when outlier trials occur, the raw Euclidean distance evaluates each trial purely against completed cohort performance on the identical metric.
+- **Strict Checkpoint Fidelity**: Because $D = \text{val\_loss}$ identically, the epoch selected by Optuna as the best trial epoch is guaranteed to be the exact epoch checkpoint saved by PyTorch Lightning.
+
+#### Pruning Execution Rules
+1. **Warmup Budget**: Requires at least 5 completed trials and 30% of the epoch budget before early stopping activates.
+2. **Threshold Termination**: Kills the training subprocess if the running best trajectory distance exceeds `slack_factor × cohort_median_distance`.
 
 ---
 
