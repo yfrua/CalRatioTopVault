@@ -45,6 +45,9 @@
 			- how it works: [0001-optuna-sampling-and-pruning](lessons/0001-optuna-sampling-and-pruning.md).
 			- instead of "2D Normalized Distance", just use square sum of two val loss?
 			- [x] enqueue trials from already found best trials.
+		- Given 4 GPUs, #1 training 4 trial with 1 GPU in parallel have different performance than #2 training 4 trails with 4 GPUs in sequence
+			- the `batch_size` in the data loader is per device, which mean #2 have 4x larger batch size than #1. And smaller batches have substantially higher gradient noise ($\sigma^2 \propto 1/B$).
+			- Given the same learning rate, smaller batch size could destabilize gradient descent.
 	- [ ] evaluate the optimized trials
 - [x] check NN consistency with TopCPToolkit
 	- signal and QCD test dataset
